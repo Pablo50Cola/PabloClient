@@ -16,7 +16,7 @@ Performance is a requirement, not a polish step. Every change must respect these
 9. **Quality presets:** a Low / Medium / High setting (blur, shadows, animation detail) so weaker PCs can still use the client.
 
 ## Phases
-0. **Design language**: colors (dark/light), radii, spacing, font (open font such as Inter, not Apple's SF), open icon set (Lucide/Phosphor), animation timings. Reviewed as an HTML mockup first.
+0. **Design language**: colors (dark/light), radii, spacing, font (open font such as Inter, not Apple's SF), open icon set (Lucide/Phosphor), animation timings. Reviewed as an HTML mockup first. (Completed)
 1. **Rendering toolkit**: shader rounded rects (gradient, outline, shadow), low-res frosted-glass blur, animation/easing helpers, clipping, text and icon helpers, demo screen.
 2. **HUD widget system**: `Widget` base class (position, anchor, scale, opacity, enabled), manager with save/load, drag-and-drop editor with snapping; migrate logo, watermark and module list out of the 620-line `HUD`.
 3. **Widgets**: FPS, CPS, ping, coordinates, clock, armor/potion status, keystrokes, module list pill.
