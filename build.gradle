@@ -73,18 +73,9 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.11.0'
     embed(fileTree(dir: "libs", include: "discord-rpc.jar"))
 
-    embed('org.spongepowered:mixin:0.6-SNAPSHOT') {
-
-        // Excludes unneeded stuff.
-        exclude module: 'gson'
-        exclude module: 'guava'
-        exclude module: 'jarjar'
-        exclude module: 'commons-codec'
-        exclude module: 'commons-io'
-        exclude module: 'launchwrapper'
-        exclude module: 'asm-commons'
-        exclude module: 'slf4j-api'
-    }
+    // The code uses Mixin 0.7+ features (e.g. @Accessor), so embed the bundled 0.8.5 jar
+    // (launchwrapper-compatible, ships a small ASM shim for 1.8.9) instead of the ancient 0.6-SNAPSHOT.
+    embed(files('libs/mixin-0.8.5.jar'))
     compile 'org.jetbrains:annotations:22.0.0'
 }
 
