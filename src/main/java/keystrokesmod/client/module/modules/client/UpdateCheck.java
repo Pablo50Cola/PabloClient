@@ -37,13 +37,13 @@ public class UpdateCheck extends Module {
             Version current = Raven.versionManager.getClientVersion();
             if (latest.isNewerThan(current)) {
                 Utils.Player.sendMessageToSelf(
-                        "The current version or Raven B++ is outdated. Visit https://github.com/K-ov/Raven-bPLUS/tree/stable/build/libs to download the latest version.");
-                Utils.Player.sendMessageToSelf("https://github.com/K-ov/Raven-bPLUS/tree/stable/build/libs");
+                        "The current version or Raven B++ is outdated. Visit https://github.com/Pablo50Cola/RavenP/releases/latest to download the latest version.");
+                Utils.Player.sendMessageToSelf("https://github.com/Pablo50Cola/RavenP/releases/latest");
             }
 
             if (current.isNewerThan(latest)) {
                 Utils.Player.sendMessageToSelf("You are on a beta build of raven");
-                Utils.Player.sendMessageToSelf("https://github.com/K-ov/Raven-bPLUS");
+                Utils.Player.sendMessageToSelf("https://github.com/Pablo50Cola/RavenP");
             } else {
                 Utils.Player.sendMessageToSelf("You are on the latest public version!");
             }

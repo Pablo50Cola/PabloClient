@@ -1,4 +1,20 @@
-# RavenB++
+# RavenP
+
+RavenP is a fork of [RavenB++ (K-ov/Raven)](https://github.com/K-ov/Raven), a PvP and utility mod for Minecraft 1.8.9 (Forge).
+This fork is maintained by [Pablo50Cola](https://github.com/Pablo50Cola) and adds improvements and new features on top of upstream.
+
+**Status:** early setup. Releases from this fork will appear under [Releases](https://github.com/Pablo50Cola/RavenP/releases).
+The download links further down this page still point to the upstream project.
+
+## Credits and license
+
+RavenP is licensed under the **GNU GPL v3** (see `LICENSE`), the same as upstream, so this fork and any build of it must stay open source under that license.
+It builds on the work of K-ov (RavenB++), Kopamed (Raven B+), the Raven B3/B4 authors, OFP and spiderfrog (KeystrokesMod), Yario and Extazz (KeystrokesMod V5), and the other contributors in the git history.
+Upstream's Discord and links are left in place where they credit the original project.
+
+---
+
+# RavenB++ (upstream readme)
 
 Raven b++ is a pvp and utility mod for minecraft 1.8.x. It supports Forge and Feather adding quality of life improvements, bug fixes, and so much more.<br>
 Not related to Raven B3/B4 in any way.
