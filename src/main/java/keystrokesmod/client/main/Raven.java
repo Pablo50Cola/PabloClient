@@ -116,6 +116,7 @@ public class Raven {
         register(new MouseManager());
         register(new PingChecker());
         register(new ForgeEventListener());
+        register(new keystrokesmod.client.ui.UiEvents());
         eventBus.register(NotificationRenderer.notificationRenderer);
 
         FontUtil.bootstrap();

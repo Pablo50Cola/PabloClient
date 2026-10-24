@@ -33,6 +33,7 @@ public class CommandManager {
         this.addCommand(new VersionCommand());
         this.addCommand(new CFakeHud());
         this.addCommand(new CHideModule());
+        this.addCommand(new UiDemo());
 
     }
 
