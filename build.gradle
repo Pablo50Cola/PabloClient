@@ -112,7 +112,14 @@ jar {
                 'LICENSE.txt',
                 'META-INF/MUMFREY.RSA',
                 'META-INF/maven/**',
-                'org/**/*.html'
+                'org/**/*.html',
+                // Mixin 0.8.5 ships a few Java 16 classes for modern Forge (ModLauncher).
+                // ForgeGradle 2.1's reobf (old ASM) crashes on them and they are unused on 1.8.9.
+                'module-info.class',
+                'org/spongepowered/asm/launch/MixinLaunchPlugin.class',
+                'org/spongepowered/asm/launch/MixinTransformationService.class',
+                'org/spongepowered/asm/launch/platform/container/ContainerHandleModLauncherEx*.class',
+                'META-INF/services/cpw.mods.*'
     }
     manifest {
         attributes(
