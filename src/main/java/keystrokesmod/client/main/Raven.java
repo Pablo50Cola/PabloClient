@@ -78,8 +78,8 @@ public class Raven {
 	public static boolean debugger;
     public static final VersionManager versionManager = new VersionManager();
     public static CommandManager commandManager;
-    public static final String sourceLocation = "https://github.com/K-ov/Raven-bPLUS";
-    public static final String downloadLocation = "https://github.com/K-ov/Raven-bPLUS/raw/stable/build/libs/%5B1.8.9%5D%20BetterKeystrokes%20V-1.2.jar";
+    public static final String sourceLocation = "https://github.com/Pablo50Cola/RavenP";
+    public static final String downloadLocation = "https://github.com/Pablo50Cola/RavenP/releases/latest";
     public static final String discord = "https://discord.gg/UqJ8ngteud";
     public static String[] updateText = {
             "Your version of Raven B++ (" + versionManager.getClientVersion().toString() + ") is outdated!",

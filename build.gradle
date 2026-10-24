@@ -73,9 +73,11 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.11.0'
     embed(fileTree(dir: "libs", include: "discord-rpc.jar"))
 
-    embed('org.spongepowered:mixin:0.6-SNAPSHOT') {
+    // Mixin 0.7.11 is the last line that bundles its own ASM, so it works on 1.8.9's launchwrapper.
+    // (0.6 is too old for the code's @Accessor; 0.8.x needs ASM 6+, which 1.8.9 does not provide.)
+    embed('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
 
-        // Excludes unneeded stuff.
+        // Excludes unneeded stuff (Minecraft/Forge already provide these).
         exclude module: 'gson'
         exclude module: 'guava'
         exclude module: 'jarjar'
@@ -83,6 +85,9 @@ dependencies {
         exclude module: 'commons-io'
         exclude module: 'launchwrapper'
         exclude module: 'asm-commons'
+        exclude module: 'asm-tree'
+        exclude module: 'asm-util'
+        exclude module: 'asm-debug-all'
         exclude module: 'slf4j-api'
     }
     compile 'org.jetbrains:annotations:22.0.0'
