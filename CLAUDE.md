@@ -6,6 +6,8 @@ Fork of K-ov/Raven (RavenB++), GPL-3.0. Forge 1.8.9 client mod, Java 8, Mixin.
 - Needs **JDK 8** (set JAVA_HOME) and network access to Forge/Sponge/Mojang maven hosts.
 - `./gradlew clean build` (Gradle 4.7, ForgeGradle 2.1-SNAPSHOT). Output: `build/libs/`.
 - `build.gradle` embeds `libs/discord-rpc.jar` via `fileTree`; that jar is not in `libs/`, so check whether anything still needs it before relying on it.
+- **Mixin must stay on 0.7.11-SNAPSHOT** (embedded via Sponge maven). 0.6 is too old (`@Accessor`), and 0.8.x needs ASM 6+, which 1.8.9 lacks (crashes with `NoClassDefFoundError ... ClassRemapper`). `libs/mixin-0.8.5.jar` is not used.
+- Verified by the owner: this build compiles on JDK 8, launches on Forge 1.8.9, and the modules work in singleplayer.
 - The cloud sandbox cannot reach those hosts, so code changes there are unbuilt: the owner compiles and tests locally.
 
 ## Layout
