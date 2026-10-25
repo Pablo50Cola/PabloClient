@@ -19,7 +19,7 @@ Three things matter, in this order:
 |---|---|---|
 | 0 | Design language and HTML mockup | **Done**, approved by the owner (mockup: dark iOS look, glass cards, Dynamic-Island-style pill) |
 | 1 | Rendering toolkit | **Done**, verified in game by the owner (blur, shadows, springs, components; 0.35 to 0.52 ms CPU) |
-| 2 | HUD widget system | **Code written, not yet built or tested.** Branch `phase2/hud-widgets`, jar `PabloClient-1.3.0-phase2.jar`. Waiting for the owner's build, screenshots and FPS numbers |
+| 2 | HUD widget system | **Builds and runs** (owner screenshot: watermark, keybinds and `perf` overlay correct, 0.19 ms client frame time, 60 FPS). Branch `phase2/hud-widgets`, jar `PabloClient-1.3.0-phase2.jar`. Still to confirm: editor, saved positions after restart and resize |
 | 3 | Widgets | Planned |
 | 4 | Notifications | Planned |
 | 5 | Menus | Planned |
@@ -28,9 +28,9 @@ Three things matter, in this order:
 
 ## Next action: verify Phase 2, then Phase 3
 
-Phase 2 is written on branch `phase2/hud-widgets` but **nobody has compiled it yet** (the cloud environment cannot reach the Forge/Mojang hosts). Next steps:
+Phase 2 is on branch `phase2/hud-widgets`. The owner built it and it launches; the HUD widgets and the perf overlay were seen working (0.19 ms, 60 FPS). Remaining checks:
 
-1. The owner builds the branch (`gradlew.bat clean build`) and sends the build output. Fix any compile errors (API names written from memory are the likely cause).
+1. ~~Build and launch~~ done.
 2. The owner launches the game and checks, in the same world and spot:
    - the HUD module on: module list, watermark and keybinds box look and sit where they did before;
    - `hudedit` opens the editor; widgets can be dragged (snapping), switched on/off, scaled and faded; Esc closes it;
