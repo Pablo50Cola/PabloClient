@@ -639,11 +639,20 @@ public class Utils {
                     .getRGB();
         }
 
+        /**
+         * Same colour as {@link #rainbowDraw(long, long...)} but without the varargs array and the
+         * Color object, so it can be called every frame without creating garbage.
+         */
+        public static int rainbowDraw(long speed, long delay) {
+            long time = System.currentTimeMillis() + delay;
+            return Color.HSBtoRGB((float) (time % (15000L / speed)) / (15000.0F / (float) speed), 1.0F, 1.0F);
+        }
+
         public static int customDraw(int delay) {
             int r = getColorBetween(150, 250, delay);
             int g = getColorBetween(0, 165, delay);
             int b = getColorBetween(0, 1, delay);
-            return new Color(r, g, b).getRGB();
+            return 0xFF000000 | ((r & 255) << 16) | ((g & 255) << 8) | (b & 255);
         }
 
         public static int getColorBetween(int min, int max, int delay) {

@@ -33,6 +33,8 @@ public class CommandManager {
         this.addCommand(new CFakeHud());
         this.addCommand(new CHideModule());
         this.addCommand(new UiDemo());
+        this.addCommand(new Perf());
+        this.addCommand(new HudEdit());
 
     }
 

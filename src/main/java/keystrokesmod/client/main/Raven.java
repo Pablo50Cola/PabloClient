@@ -129,6 +129,7 @@ public class Raven {
         modernClickGui = new ModernClickGui();
         kvCompactGui = new KvCompactGui();
         configManager = new ConfigManager();
+        keystrokesmod.client.ui.hud.WidgetManager.init(); // before the config is read, so saved widget data has somewhere to go
         clientConfig = new ClientConfig();
         clientConfig.applyConfig();
 		

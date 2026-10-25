@@ -1,6 +1,6 @@
 # Pablo Client: mission and roadmap
 
-_Last updated at the end of Phase 1. Whoever finishes a phase updates the status table and the "Next action" section below._
+_Last updated after the Phase 2 code was written (awaiting the owner's build and test). Whoever finishes a phase updates the status table and the "Next action" section below._
 
 ## Mission
 
@@ -19,36 +19,44 @@ Three things matter, in this order:
 |---|---|---|
 | 0 | Design language and HTML mockup | **Done**, approved by the owner (mockup: dark iOS look, glass cards, Dynamic-Island-style pill) |
 | 1 | Rendering toolkit | **Done**, verified in game by the owner (blur, shadows, springs, components; 0.35 to 0.52 ms CPU) |
-| 2 | HUD widget system | **Next** |
+| 2 | HUD widget system | **Code written, not yet built or tested.** Branch `phase2/hud-widgets`, jar `PabloClient-1.3.0-phase2.jar`. Waiting for the owner's build, screenshots and FPS numbers |
 | 3 | Widgets | Planned |
 | 4 | Notifications | Planned |
 | 5 | Menus | Planned |
 | 6 | Polish (themes, font, icons, presets) | Planned |
 | 7 | Release | Planned |
 
-## Next action: Phase 2
+## Next action: verify Phase 2, then Phase 3
 
-Build the HUD widget system on top of the Phase 1 toolkit (`docs/UI_TOOLKIT.md`).
+Phase 2 is written on branch `phase2/hud-widgets` but **nobody has compiled it yet** (the cloud environment cannot reach the Forge/Mojang hosts). Next steps:
 
-Deliverables:
-- `ui/hud/Widget`: base class with id, position, anchor (corner/edge + offset so it survives window resizes), scale, opacity, enabled flag, `measure()` and `render(partialTicks)`.
-- `ui/hud/WidgetManager`: registry, one render pass per frame on `Render2DEvent`, skipping disabled widgets, drawing inside a single `FrameCost.begin()/end()`.
-- Persistence: save/load widget positions and settings to the existing config system (`ConfigManager` / `ClientConfig`). Unknown or missing fields fall back to defaults.
-- Drag-and-drop editor screen with snapping to edges/centre and other widgets; opened by a command and from the menu.
-- A `.perf` command (and optional small overlay) showing `FrameCost.avgMs()`, FPS and `Gfx.drawCallsLastFrame()`.
-- Migrate the existing logo, watermark and module list out of `module/modules/HUD.java` (about 620 lines) into widgets without changing their behaviour.
+1. The owner builds the branch (`gradlew.bat clean build`) and sends the build output. Fix any compile errors (API names written from memory are the likely cause).
+2. The owner launches the game and checks, in the same world and spot:
+   - the HUD module on: module list, watermark and keybinds box look and sit where they did before;
+   - `hudedit` opens the editor; widgets can be dragged (snapping), switched on/off, scaled and faded; Esc closes it;
+   - positions survive restarting the game and resizing the window;
+   - `perf` prints the numbers, `perf overlay` shows them live;
+   - client frame time and FPS with the HUD off and on (screenshot of the overlay is enough).
+3. After the owner confirms, merge into `main` through a pull request, mark Phase 2 done here and start **Phase 3 (widgets)**: FPS, CPS, ping, coordinates, clock, armor and potion status, keystrokes, and real widgets for the Target HUD and the Radar (replacing `LegacyBoxWidget`).
 
-Acceptance:
-- Widgets can be moved, enabled and disabled; positions survive a restart and a window resize.
-- All old HUD features still work.
-- No per-frame allocation in widget render code.
-- The owner reports the client frame time and FPS with the HUD on and off (same world, same spot).
+What Phase 2 contains (see `docs/UI_TOOLKIT.md`, section "HUD widget system"):
+- `ui/hud/Widget`, `Anchor`, `WidgetManager`: anchor + offset positions that survive window resizes, scale, opacity, one render pass per frame inside one `FrameCost` pair.
+- Saved in `clientconfig.kv` under `"widgets"`; missing or damaged fields fall back to defaults; the old positions are carried over once.
+- `HudEditorScreen`: drag and drop with snapping, selection panel, mouse wheel scale, arrow-key nudging. Opened by `hudedit`, the HUD module's "Edit position" switch, or the HUDEditor module.
+- `perf` command and a `PerfWidget` overlay (off by default).
+- The old HUD module no longer draws anything itself: module list, watermark and keybinds are widgets that use the module's settings and still only show while it is on. Target HUD and Radar still draw themselves (and keep their saved position in `hudpos.json`); the editor can move them.
+
+Acceptance (owner reports): widgets can be moved, enabled and disabled; positions survive a restart and a window resize; all old HUD features still work; client frame time and FPS with the HUD on and off.
+
+Known gaps carried into later phases:
+- The old HUD "Logo" setting did nothing even before Phase 2 (the logo image was never loaded), so no logo widget exists. The settings are still there, untouched.
+- The module list keeps the old settings (colour mode, shadow, background); they move into per-widget settings in Phase 5 when the old GUIs go.
 
 ## Phases in detail
 
 0. **Design language.** Dark-first iOS palette (`ui/gfx/Colors`), radii around 12 to 18 for cards, spacing on a 4/8 grid, spring timings, Inter font (open licence), open icon set. Done as an HTML mockup first so look decisions are cheap.
 1. **Rendering toolkit.** SDF-shader rounded rectangles with gradient, outline and soft shadow; low-resolution frosted-glass blur; spring/tween animation; clipping; text helpers; quality presets; demo screen (`uidemo`). Done.
-2. **HUD widget system.** See "Next action".
+2. **HUD widget system.** Anchored widgets, manager, saved layout, drag-and-drop editor, `perf` command, old HUD migrated. Code written; awaiting the owner's test.
 3. **Widgets.** FPS, CPS, ping, coordinates, clock, armor and potion status, keystrokes, module-list pill. Each is a `Widget` subclass with its own settings, text cached until the value changes.
 4. **Notifications.** iOS-style banners and a Dynamic-Island-style pill for module toggles, queued and animated with springs.
 5. **Menus.** Settings-app-style ClickGUI (grouped lists, animated switches, sliders, segmented controls), restyled main menu, and removal of the two old GUIs (`clickgui/raven`, `clickgui/kv`) once the new one covers everything.
