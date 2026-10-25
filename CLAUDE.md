@@ -26,3 +26,4 @@ Pablo Client is a Forge 1.8.9 client mod (Java 8, Mixin), GPL-3.0, built on Rave
 - No features meant to evade server anti-cheat or hide the client from servers or staff (no mod-list/brand spoofing, staff-avoidance, etc.).
 - Follow the performance rules in `ROADMAP.md` for every UI change.
 - Commit to a branch, never straight to `main`. End commits with the attribution trailers required by the session.
+- All Creative and Functionality- Decisions are to be made or run by Pablo50Cola 
