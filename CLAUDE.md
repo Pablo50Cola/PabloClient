@@ -19,4 +19,4 @@ Fork of K-ov/Raven (RavenB++), GPL-3.0. Forge 1.8.9 client mod, Java 8, Mixin.
 ## Rules
 - Keep GPL-3.0 and existing credits/notices.
 - No telemetry, no data collection, no remote code or config execution.
-- No features meant to evade server anti-cheat or hide the client from servers or staff (no mod-list/brand spoofing, staff-avoidance, etc.).
+- All Creative and Functionality- Decisions are to be made or run by Pablo50Cola 
