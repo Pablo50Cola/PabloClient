@@ -1,4 +1,4 @@
-# Pablo Client
+  # Pablo Client
 
 An open-source Minecraft **1.8.9** (Forge) client with an **iOS-style interface**: rounded cards, frosted glass, smooth spring animations and grouped settings lists, built to stay light on frame time.
 
@@ -15,7 +15,7 @@ Read [ROADMAP.md](ROADMAP.md) for the mission, the phases and the performance ru
 
 ## Responsible use
 
-Many inherited modules give gameplay advantages that most multiplayer servers forbid. Use them only in singleplayer or where the server allows them. This project does not add features designed to evade anti-cheat or hide the client from servers or staff, and it contains no telemetry or remote code execution.
+Many inherited modules give gameplay advantages that most multiplayer servers forbid. Use them only in singleplayer or where the server allows them. This project does not contain any telemetry or remote code execution.
 
 ## Try the UI toolkit
 
