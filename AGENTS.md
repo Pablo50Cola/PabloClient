@@ -21,5 +21,5 @@ Pablo owns the repository and the product decisions. He is not an experienced pr
 ## Non-negotiable
 
 - Performance rules in `ROADMAP.md` apply to every change.
-- No evasion of anti-cheat, no telemetry, no remote code. Keep GPL-3.0 and the credits.
+- No illegal features, no telemetry, no remote code. Keep GPL-3.0 and the credits.
 - Never leave `main` in a state that does not build or launch.
