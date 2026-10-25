@@ -139,9 +139,9 @@ public class HudEditorScreen extends GuiScreen {
                 UiText.drawCentered(w.title, x + ww / 2f, y + (hh - UiText.height()) / 2f, Colors.LABEL_SECONDARY);
             }
             if (w == selected) {
-                Gfx.outlined(x - 2f, y - 2f, ww + 4f, hh + 4f, 6f, 1.5f, 0x00000000, Colors.ACCENT);
+                frame(x - 2f, y - 2f, ww + 4f, hh + 4f, Colors.ACCENT);
             } else if (w.contains(mouseX, mouseY) && dragging == null) {
-                Gfx.outlined(x - 2f, y - 2f, ww + 4f, hh + 4f, 6f, 1f, 0x00000000, 0x88FFFFFF);
+                frame(x - 2f, y - 2f, ww + 4f, hh + 4f, 0x88FFFFFF);
             }
         }
 
@@ -155,6 +155,18 @@ public class HudEditorScreen extends GuiScreen {
                 Colors.LABEL_SECONDARY);
 
         super.drawScreen(mouseX, mouseY, partialTicks);
+    }
+
+    /** Plain 1-unit frame made of four vanilla rectangles; never covers the widget's content. */
+    private static void frame(float x, float y, float w, float h, int color) {
+        int x1 = (int) x;
+        int y1 = (int) y;
+        int x2 = (int) (x + w + 0.5f);
+        int y2 = (int) (y + h + 0.5f);
+        drawRect(x1, y1, x2, y1 + 1, color);
+        drawRect(x1, y2 - 1, x2, y2, color);
+        drawRect(x1, y1 + 1, x1 + 1, y2 - 1, color);
+        drawRect(x2 - 1, y1 + 1, x2, y2 - 1, color);
     }
 
     private void drawPanel(int mouseX, int mouseY) {
