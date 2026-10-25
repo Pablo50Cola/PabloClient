@@ -20,11 +20,7 @@ Raven b++ is a pvp and utility mod for minecraft 1.8.x. It supports Forge and Fe
 Not related to Raven B3/B4 in any way.
 
 ## Community
-
-Official Discord of RavenB++:
-[https://discord.gg/UqJ8ngteud](https://discord.gg/UqJ8ngteud)
-
----
+Coming Soon...
 
 # Installation & Download
 
@@ -40,7 +36,7 @@ Official Discord of RavenB++:
   * `Essential-forge_1-8-9.jar`
   into the `mods` folder.
 * Launch Minecraft using the Forge profile and you're good to go.
-* If you still need help, you can join the Discord server.
+(Upstream from RavenB++) 
 
 Alternatively, this [YouTube tutorial](https://www.youtube.com/watch?v=CuV4GfLDubk) explains the installation process step-by-step.
 
