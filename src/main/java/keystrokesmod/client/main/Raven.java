@@ -80,9 +80,8 @@ public class Raven {
     public static CommandManager commandManager;
     public static final String sourceLocation = "https://github.com/Pablo50Cola/RavenP";
     public static final String downloadLocation = "https://github.com/Pablo50Cola/RavenP/releases/latest";
-    public static final String discord = "https://discord.gg/UqJ8ngteud";
     public static String[] updateText = {
-            "Your version of Raven B++ (" + versionManager.getClientVersion().toString() + ") is outdated!",
+            "Your version of Pablo Client (" + versionManager.getClientVersion().toString() + ") is outdated!",
             "Enter the command update into client CommandLine to open the download page",
             "or just enable the update module to get a message in chat.", "",
             "Newest version: " + versionManager.getLatestVersion().toString() };
@@ -116,6 +115,7 @@ public class Raven {
         register(new MouseManager());
         register(new PingChecker());
         register(new ForgeEventListener());
+        register(new keystrokesmod.client.ui.UiEvents());
         eventBus.register(NotificationRenderer.notificationRenderer);
 
         FontUtil.bootstrap();

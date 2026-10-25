@@ -280,7 +280,7 @@ public class HUD extends Module {
 
     private void drawWatermark() {
         if (!watermark.isToggled()) return;
-        String text = "Raven B++ | " + mc.getSession().getUsername() + " | " + Minecraft.getDebugFPS() + " FPS";
+        String text = "Pablo Client | " + mc.getSession().getUsername() + " | " + Minecraft.getDebugFPS() + " FPS";
         int color = (ColourModes.values()[(int) colourMode.getInput() - 1] == ColourModes.ORANGE) ? 0xFFFF8C00 : -1;
         
         int width = mc.fontRendererObj.getStringWidth(text) + 6;
