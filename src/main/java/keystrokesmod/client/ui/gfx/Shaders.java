@@ -132,7 +132,7 @@ public final class Shaders {
                 ok = false;
             }
             supported = ok;
-            if (!ok) System.err.println("[RavenP/ui] OpenGL 2.0 not available, using the simple renderer.");
+            if (!ok) System.err.println("[PabloClient/ui] OpenGL 2.0 not available, using the simple renderer.");
         }
         return supported;
     }

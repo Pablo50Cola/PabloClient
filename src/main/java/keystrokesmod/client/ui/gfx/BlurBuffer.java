@@ -48,7 +48,7 @@ public final class BlurBuffer {
             } catch (Throwable t) {
                 broken = true;
                 lastCaptureOk = false;
-                System.err.println("[RavenP/ui] blur disabled after error: " + t);
+                System.err.println("[PabloClient/ui] blur disabled after error: " + t);
                 try {
                     Minecraft.getMinecraft().getFramebuffer().bindFramebuffer(true);
                 } catch (Throwable ignored) {

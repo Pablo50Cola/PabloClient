@@ -89,7 +89,7 @@ public class HUDEditor extends Module {
             elements.add(new HUDElement("Watermark", HUD.watermarkX, HUD.watermarkY, 200, 20) {
                 @Override
                 public void render(int mouseX, int mouseY) {
-                    String text = "Raven B++ | Player | 144 FPS";
+                    String text = "Pablo Client | Player | 144 FPS";
                     FontRenderer fr = mc.fontRendererObj;
                     int width = fr.getStringWidth(text) + 6;
                     int height = fr.FONT_HEIGHT + 6;

@@ -905,7 +905,7 @@ public class Utils {
     public static class URLS {
 
         public static final String base_url = "https://api.paste.ee/v1/pastes/";
-        public static final String base_paste = "{\"description\":\"Raven B+ Config\",\"expiration\":\"never\",\"sections\":[{\"name\":\"TitleGoesHere\",\"syntax\":\"text\",\"contents\":\"BodyGoesHere\"}]}";
+        public static final String base_paste = "{\"description\":\"Pablo Client Config\",\"expiration\":\"never\",\"sections\":[{\"name\":\"TitleGoesHere\",\"syntax\":\"text\",\"contents\":\"BodyGoesHere\"}]}";
         public static String hypixelApiKey = "";
         public static String pasteApiKey = "";
 

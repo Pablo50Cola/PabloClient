@@ -27,7 +27,7 @@ public final class ShaderProgram {
             GL20.glAttachShader(p, fs);
             GL20.glLinkProgram(p);
             if (GL20.glGetProgrami(p, GL20.GL_LINK_STATUS) == 0) {
-                System.err.println("[RavenP/ui] shader '" + name + "' failed to link: "
+                System.err.println("[PabloClient/ui] shader '" + name + "' failed to link: "
                         + GL20.glGetProgramInfoLog(p, 4096));
                 GL20.glDeleteProgram(p);
             } else {
@@ -35,7 +35,7 @@ public final class ShaderProgram {
                 valid = true;
             }
         } catch (Throwable t) {
-            System.err.println("[RavenP/ui] shader '" + name + "' unavailable: " + t);
+            System.err.println("[PabloClient/ui] shader '" + name + "' unavailable: " + t);
             valid = false;
         } finally {
             if (vs != 0) GL20.glDeleteShader(vs);

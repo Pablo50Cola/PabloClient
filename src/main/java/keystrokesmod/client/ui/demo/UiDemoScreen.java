@@ -138,7 +138,7 @@ public class UiDemoScreen extends GuiScreen {
         UiText.draw("Draw calls", panelX + PAD, rowTop(5) + textOff, Colors.LABEL);
         UiText.drawRight(callsText, panelX + PANEL_W - PAD, rowTop(5) + textOff, Colors.LABEL_SECONDARY);
 
-        UiText.drawCentered("Esc to close", w / 2f, h - 16f, Colors.LABEL_SECONDARY);
+        UiText.drawCentered("Esc to close", w / 2f, panelY + PANEL_H + 14f, Colors.LABEL_SECONDARY);
 
         super.drawScreen(mouseX, mouseY, partialTicks);
         FrameCost.end();
