@@ -82,3 +82,8 @@ Acceptance:
 - Package names (`keystrokesmod.*`) and the mod id `keystrokesmod` stay as they are, so configs and mixins keep working. Only user-visible names say "Pablo Client".
 - Dark theme first, light theme in Phase 6.
 - Rendering uses GLSL 1.20 shaders with a fallback path, not a new rendering library.
+
+## Future expansion(unconfirmed)
+1. Quality of life features: Keystrokes, Zoom, Music Player(Sigmaclient Inspo), Visuals.
+2. Further simple features: HUD Skidding, Render improvements. 
+3. Client-Bypasses and new feats.
