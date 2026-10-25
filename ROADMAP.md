@@ -11,7 +11,7 @@ Three things matter, in this order:
 2. **Look and feel.** Consistent iOS design language everywhere (HUD, menus, notifications).
 3. **Stability.** It must always build and launch on Forge 1.8.9 with JDK 8. Never leave `main` in a state that does not launch.
 
-**Non-goals:** copying Apple assets (no SF Pro, no SF Symbols; use Inter and an open icon set such as Lucide or Phosphor), telemetry or data collection, remote code or config execution, and any feature meant to evade server anti-cheat or hide the client from servers or staff.
+**Non-goals:** copying Apple assets (no SF Pro, no SF Symbols; use Inter and an open icon set such as Lucide or Phosphor), telemetry or data collection, remote code or config execution.
 
 ## Status
 
