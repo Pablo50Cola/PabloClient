@@ -1,6 +1,5 @@
 package keystrokesmod.client.command.commands;
 
-import keystrokesmod.client.clickgui.raven.Terminal;
 import keystrokesmod.client.command.Command;
 import keystrokesmod.client.notifications.Notification;
 import keystrokesmod.client.notifications.NotificationManager;
@@ -8,7 +7,7 @@ import keystrokesmod.client.notifications.NotificationType;
 
 /**
  * {@code notify} shows a demo of the notifications. {@code notify <info|success|warning|error> text}
- * shows one banner. They only appear while "Notifications" is switched on in the Gui module.
+ * shows one banner.
  */
 public class Notify extends Command {
     public Notify() {
@@ -18,8 +17,6 @@ public class Notify extends Command {
 
     @Override
     public void onCall(String[] args) {
-        Terminal.print("Notifications only show while 'Notifications' is on in the Gui module settings.");
-
         if (args.length == 0) {
             NotificationManager.island("Sprint", true);
             NotificationManager.info("Info", "This is a normal message");

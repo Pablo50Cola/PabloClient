@@ -25,7 +25,7 @@ public final class WatermarkWidget extends Widget {
 
     @Override
     public String hint() {
-        return "Shown while the HUD module is on.";
+        return "Needs the HUD module on.";
     }
 
     @Override

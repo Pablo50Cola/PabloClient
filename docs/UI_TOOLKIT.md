@@ -78,4 +78,4 @@ Widgets that draw `Gfx.glass(...)` need real screen coordinates: return `false` 
 
 # Notifications (Phase 4)
 
-`client/notifications/`: `NotificationManager` (drawing, queue, island), `Notification` (one banner), `NotificationType` (INFO, SUCCESS, WARNING, ERROR), `NotificationRenderer` (event hook; module toggles call `moduleStateChanged`). Master switch: "Notifications" in the Gui module. Banners and the island use `Gfx` shapes and `Spring`; nothing is drawn or allocated while idle. Use `NotificationManager.info/success/warning/error(title, message)` from any module; `notify` command for testing.
+`client/notifications/`: `NotificationManager` (drawing, queue, island), `Notification` (one banner), `NotificationType` (INFO, SUCCESS, WARNING, ERROR), `NotificationRenderer` (event hook; module toggles call `moduleStateChanged`). Banners are always on; the Gui module tick "Toggle island" controls the module-toggle island. Banners and the island use `Gfx` shapes and `Spring`; nothing is drawn or allocated while idle. Use `NotificationManager.info/success/warning/error(title, message)` from any module; `notify` command for testing.

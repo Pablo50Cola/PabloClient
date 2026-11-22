@@ -24,7 +24,7 @@ public class GuiModule extends Module {
         withKeycode(54);
         this.registerSetting(cleanUp = new TickSetting("Clean Up", false));
         this.registerSetting(reset = new TickSetting("Reset position", false));
-        this.registerSetting(notifications = new TickSetting("Notifications", false));
+        this.registerSetting(notifications = new TickSetting("Toggle island", true));
         this.registerSetting(rainbowNotification = new TickSetting("Reset position", false));
         this.registerSetting(animeGirl = new TickSetting("Anime Girl", false));
         this.registerSetting(animeGirlSize = new SliderSetting("Anime Girl Size", 202, 20, 500, 5));

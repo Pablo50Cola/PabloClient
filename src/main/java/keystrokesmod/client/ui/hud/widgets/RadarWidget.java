@@ -34,7 +34,7 @@ public final class RadarWidget extends Widget {
 
     @Override
     public String hint() {
-        return "Shown while the Radar module is on. Opacity does not apply.";
+        return "Needs the Radar module on.";
     }
 
     @Override

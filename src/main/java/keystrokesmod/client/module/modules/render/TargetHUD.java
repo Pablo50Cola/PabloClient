@@ -176,7 +176,7 @@ public class TargetHUD extends Module {
             flashAlpha = 1f - (timeSinceDamage / 300f);
         }
 
-        int bgBase = new Color(26, 26, 26, (int)(alpha * 128)).getRGB();
+        int bgBase = new Color(28, 28, 30, (int)(alpha * 128)).getRGB();
         if (flashAlpha > 0) {
             int r = (int) (26 + (255 - 26) * flashAlpha);
             int g = (int) (26 * (1 - flashAlpha));
@@ -185,11 +185,11 @@ public class TargetHUD extends Module {
         }
         RenderUtils.drawRoundedRect(x, y, x + hudWidth, y + hudHeight, 8, bgBase);
 
-        int borderColor = (int) (alpha * 0xFF) << 24 | 0xFF8C00;
+        int borderColor = (int) (alpha * 0x40) << 24 | 0xFFFFFF;
         if (flashAlpha > 0) {
             borderColor = (int) (alpha * 0xFF) << 24 | 0xFF0000;
         }
-        RenderUtils.drawBorderedRoundedRect(x, y, x + hudWidth, y + hudHeight, 8, 2, borderColor, 0x00000000);
+        RenderUtils.drawBorderedRoundedRect(x, y, x + hudWidth, y + hudHeight, 8, 1, borderColor, 0x00000000);
 
         GL11.glColor4f(1, 1, 1, alpha);
         mc.getTextureManager().bindTexture(target.getLocationSkin());
@@ -212,7 +212,7 @@ public class TargetHUD extends Module {
         RenderUtils.drawRoundedRect(x + 40, healthBarY, x + 40 + healthBarWidth, healthBarY + 8, 4,
                 (int) (alpha * 0x40) << 24 | 0x404040);
 
-        int healthColor = healthPercent > 0.5f ? 0xFF00FF00 : (healthPercent > 0.25f ? 0xFFFFFF00 : 0xFFFF0000);
+        int healthColor = healthPercent > 0.5f ? 0xFF30D158 : (healthPercent > 0.25f ? 0xFFFF9F0A : 0xFFFF453A);
         int healthFillColor = (int) (alpha * 0xFF) << 24 | healthColor;
         RenderUtils.drawRoundedRect(x + 40, healthBarY, x + 40 + (int) (healthBarWidth * healthPercent), healthBarY + 8, 4,
                 healthFillColor);
@@ -259,7 +259,7 @@ public class TargetHUD extends Module {
             flashAlpha = 1f - (timeSinceDamage / 300f);
         }
 
-        int bgBase = new Color(26, 26, 26, (int)(alpha * 128)).getRGB();
+        int bgBase = new Color(28, 28, 30, (int)(alpha * 128)).getRGB();
         if (flashAlpha > 0) {
             int r = (int) (26 + (255 - 26) * flashAlpha);
             int g = (int) (26 * (1 - flashAlpha));
@@ -268,11 +268,11 @@ public class TargetHUD extends Module {
         }
         RenderUtils.drawRoundedRect(x, y, x + hudWidth, y + hudHeight, 8, bgBase);
 
-        int borderColor = (int) (alpha * 0xFF) << 24 | 0xFF8C00;
+        int borderColor = (int) (alpha * 0x40) << 24 | 0xFFFFFF;
         if (flashAlpha > 0) {
             borderColor = (int) (alpha * 0xFF) << 24 | 0xFF0000;
         }
-        RenderUtils.drawBorderedRoundedRect(x, y, x + hudWidth, y + hudHeight, 8, 2, borderColor, 0x00000000);
+        RenderUtils.drawBorderedRoundedRect(x, y, x + hudWidth, y + hudHeight, 8, 1, borderColor, 0x00000000);
 
         if (scale > 0.5f) {
             try {
@@ -298,7 +298,7 @@ public class TargetHUD extends Module {
         RenderUtils.drawRoundedRect(x + 40, healthBarY, x + 40 + healthBarWidth, healthBarY + 8, 4,
                 (int) (alpha * 0x40) << 24 | 0x404040);
 
-        int healthColor = healthPercent > 0.5f ? 0xFF00FF00 : (healthPercent > 0.25f ? 0xFFFFFF00 : 0xFFFF0000);
+        int healthColor = healthPercent > 0.5f ? 0xFF30D158 : (healthPercent > 0.25f ? 0xFFFF9F0A : 0xFFFF453A);
         int healthFillColor = (int) (alpha * 0xFF) << 24 | healthColor;
         RenderUtils.drawRoundedRect(x + 40, healthBarY, x + 40 + (int) (healthBarWidth * healthPercent), healthBarY + 8, 4,
                 healthFillColor);
@@ -345,7 +345,7 @@ public class TargetHUD extends Module {
             flashAlpha = 1f - (timeSinceDamage / 300f);
         }
 
-        int bgBase = new Color(26, 26, 26, (int)(alpha * 128)).getRGB();
+        int bgBase = new Color(28, 28, 30, (int)(alpha * 128)).getRGB();
         if (flashAlpha > 0) {
             int r = (int) (26 + (255 - 26) * flashAlpha);
             int g = (int) (26 * (1 - flashAlpha));
@@ -354,11 +354,11 @@ public class TargetHUD extends Module {
         }
         RenderUtils.drawRoundedRect(x, y, x + hudWidth, y + hudHeight, 8, bgBase);
 
-        int borderColor = (int) (alpha * 0xFF) << 24 | 0xFF8C00;
+        int borderColor = (int) (alpha * 0x40) << 24 | 0xFFFFFF;
         if (flashAlpha > 0) {
             borderColor = (int) (alpha * 0xFF) << 24 | 0xFF0000;
         }
-        RenderUtils.drawBorderedRoundedRect(x, y, x + hudWidth, y + hudHeight, 8, 2, borderColor, 0x00000000);
+        RenderUtils.drawBorderedRoundedRect(x, y, x + hudWidth, y + hudHeight, 8, 1, borderColor, 0x00000000);
 
         String targetName = target.getName();
         int nameColor = (int) (alpha * 0xFF) << 24 | 0xFFFFFF;
@@ -377,7 +377,7 @@ public class TargetHUD extends Module {
         RenderUtils.drawRoundedRect(x + 5, healthBarY, x + 5 + healthBarWidth, healthBarY + 8, 4,
                 (int) (alpha * 0x40) << 24 | 0x404040);
 
-        int healthColor = healthPercent > 0.5f ? 0xFF00FF00 : (healthPercent > 0.25f ? 0xFFFFFF00 : 0xFFFF0000);
+        int healthColor = healthPercent > 0.5f ? 0xFF30D158 : (healthPercent > 0.25f ? 0xFFFF9F0A : 0xFFFF453A);
         int healthFillColor = (int) (alpha * 0xFF) << 24 | healthColor;
         RenderUtils.drawRoundedRect(x + 5, healthBarY, x + 5 + (int) (healthBarWidth * healthPercent), healthBarY + 8, 4,
                 healthFillColor);

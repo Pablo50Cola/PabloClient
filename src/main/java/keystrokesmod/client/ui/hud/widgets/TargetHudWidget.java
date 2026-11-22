@@ -34,7 +34,7 @@ public final class TargetHudWidget extends Widget {
 
     @Override
     public String hint() {
-        return "Shown while the Target HUD module is on. Opacity does not apply.";
+        return "Needs the Target HUD module on.";
     }
 
     @Override

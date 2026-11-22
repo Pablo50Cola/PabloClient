@@ -16,8 +16,7 @@ public class NotificationRenderer {
 
     @Subscribe
     public void onRender(Render2DEvent e) {
-        if (GuiModule.notifications())
-            NotificationManager.render();
+        NotificationManager.render();
     }
 
     public static void moduleStateChanged(Module m) {

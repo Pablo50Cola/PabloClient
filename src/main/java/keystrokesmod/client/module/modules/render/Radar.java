@@ -46,7 +46,7 @@ public class Radar extends Module {
         int cy = radarY + halfS;
         
         // Background
-        RenderUtils.drawRoundedRect(radarX, radarY, radarX + s, radarY + s, 8, 0x801A1A1A);
+        RenderUtils.drawRoundedRect(radarX, radarY, radarX + s, radarY + s, 8, 0xCC1C1C1E);
         
         // Border
         RenderUtils.drawBorderedRoundedRect(radarX, radarY, radarX + s, radarY + s, 8, 2, 0xFFFF8C00, 0x00000000);
@@ -87,9 +87,9 @@ public class Radar extends Module {
             
             // Color based on Y level difference
             double diffY = player.posY - mc.thePlayer.posY;
-            int blipColor = 0xFFFF0000; // Default Red
-            if (diffY > 3) blipColor = 0xFF00FF00; // Above = Green
-            else if (diffY < -3) blipColor = 0xFF0000FF; // Below = Blue
+            int blipColor = 0xFFFF453A; // Default Red
+            if (diffY > 3) blipColor = 0xFF30D158; // Above = Green
+            else if (diffY < -3) blipColor = 0xFF0A84FF; // Below = Blue
             
             RenderUtils.drawRoundedRect(pointX - 2, pointY - 2, pointX + 2, pointY + 2, 2, blipColor);
         }
