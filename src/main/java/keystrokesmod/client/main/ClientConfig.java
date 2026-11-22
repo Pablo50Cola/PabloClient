@@ -17,6 +17,7 @@ import keystrokesmod.client.module.GuiModule;
 import keystrokesmod.client.module.Module;
 import keystrokesmod.client.module.Module.ModuleCategory;
 import keystrokesmod.client.module.modules.HUD;
+import keystrokesmod.client.ui.hud.WidgetManager;
 import keystrokesmod.client.utils.Utils;
 import keystrokesmod.keystroke.KeyStroke;
 import net.minecraft.client.Minecraft;
@@ -66,6 +67,15 @@ public class ClientConfig {
             loadTerminalCoords(config.get("clickgui").getAsJsonObject());
             loadModules(config.get("modules").getAsJsonObject());
         } catch (final Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            // separate from the block above: a problem there must not stop the widgets from loading
+            final JsonObject widgets = config != null && config.has("widgets") && config.get("widgets").isJsonObject()
+                    ? config.getAsJsonObject("widgets")
+                    : null;
+            WidgetManager.fromJson(widgets);
+        } catch (final RuntimeException e) {
             e.printStackTrace();
         }
         applyingConfig = false;
@@ -121,6 +131,7 @@ public class ClientConfig {
         data.add("hud", getHudAsJson());
         data.add("clickgui", getClickGuiAsJson());
         data.add("modules", getModulesAsJson());
+        data.add("widgets", WidgetManager.toJson());
 
         return data;
     }

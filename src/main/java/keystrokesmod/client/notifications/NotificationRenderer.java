@@ -16,8 +16,7 @@ public class NotificationRenderer {
 
     @Subscribe
     public void onRender(Render2DEvent e) {
-        if (GuiModule.notifications())
-            NotificationManager.render();
+        NotificationManager.render();
     }
 
     public static void moduleStateChanged(Module m) {
@@ -25,8 +24,6 @@ public class NotificationRenderer {
                 || ClientConfig.applyingConfig)
             return;
 
-        String s = m.isEnabled() ? "enabled" : "disabled";
-        NotificationManager
-                .show(new Notification(NotificationType.INFO, "Module " + s, m.getName() + " has been " + s, 1));
+        NotificationManager.island(m.getName(), m.isEnabled());
     }
 }

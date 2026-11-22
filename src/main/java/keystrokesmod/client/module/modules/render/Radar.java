@@ -25,20 +25,31 @@ public class Radar extends Module {
         this.registerSetting(scale = new SliderSetting("Scale", 2.0, 0.5, 5.0, 0.1));
     }
 
-    @Subscribe
-    public void onRender2D(Render2DEvent e) {
+    /** Edge length of the (square) radar in GUI units. */
+    public int sizePx() {
+        return (int) size.getInput();
+    }
+
+    /**
+     * Draws the radar with its top-left corner at (0, 0). Called by {@code RadarWidget}, which
+     * moves and scales the drawing; the module no longer draws on its own.
+     */
+    public void drawRadar() {
         if (mc.thePlayer == null || mc.theWorld == null) return;
-        
+
+        // local origin; shadows the old saved position fields (kept only to carry old positions over)
+        final int radarX = 0;
+        final int radarY = 0;
         int s = (int) size.getInput();
         int halfS = s / 2;
         int cx = radarX + halfS;
         int cy = radarY + halfS;
         
         // Background
-        RenderUtils.drawRoundedRect(radarX, radarY, radarX + s, radarY + s, 8, 0x801A1A1A);
+        RenderUtils.drawRoundedRect(radarX, radarY, radarX + s, radarY + s, 8, 0xCC1C1C1E);
         
         // Border
-        RenderUtils.drawBorderedRoundedRect(radarX, radarY, radarX + s, radarY + s, 8, 2, 0xFFFF8C00, 0x00000000);
+        RenderUtils.drawBorderedRoundedRect(radarX, radarY, radarX + s, radarY + s, 8, 2, 0xFF0A84FF, 0x00000000);
         
         // Center lines
         Gui.drawRect(cx - halfS, cy - 1, cx + halfS, cy + 1, 0x20FFFFFF);
@@ -48,7 +59,7 @@ public class Radar extends Module {
         FontUtil.two.drawString("Radar", radarX + 5, radarY + 5, 0xFFFFFFFF);
         
         // Self
-        RenderUtils.drawRoundedRect(cx - 2, cy - 2, cx + 2, cy + 2, 2, 0xFFFF8C00);
+        RenderUtils.drawRoundedRect(cx - 2, cy - 2, cx + 2, cy + 2, 2, 0xFF0A84FF);
 
         // Players
         double radarScale = scale.getInput();
@@ -76,9 +87,9 @@ public class Radar extends Module {
             
             // Color based on Y level difference
             double diffY = player.posY - mc.thePlayer.posY;
-            int blipColor = 0xFFFF0000; // Default Red
-            if (diffY > 3) blipColor = 0xFF00FF00; // Above = Green
-            else if (diffY < -3) blipColor = 0xFF0000FF; // Below = Blue
+            int blipColor = 0xFFFF453A; // Default Red
+            if (diffY > 3) blipColor = 0xFF30D158; // Above = Green
+            else if (diffY < -3) blipColor = 0xFF0A84FF; // Below = Blue
             
             RenderUtils.drawRoundedRect(pointX - 2, pointY - 2, pointX + 2, pointY + 2, 2, blipColor);
         }

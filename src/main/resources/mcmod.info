@@ -1,10 +1,10 @@
 [
     {
         "modid": "keystrokesmod",
-        "name": "KeystrokesMod",
-        "description": "Shows your keystrokes ingame. | Updated and modified by spiderfrog | V5 by Yario & Extazz | Ported by OFP.",
-        "version": "KMV5",
-        "url": "https://www.youtube.com/ofpmedia",
+        "name": "Pablo Client",
+        "description": "Pablo Client: an open-source Minecraft 1.8.9 client with an iOS-style interface. Built on RavenB++ (GPL-3.0); see CREDITS.md.",
+        "version": "1.3.0",
+        "url": "https://github.com/Pablo50Cola/RavenP",
         "updateUrl": "",
         "authorList": [
             "OFP",

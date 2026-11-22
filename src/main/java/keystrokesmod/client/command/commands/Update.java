@@ -29,7 +29,7 @@ public class Update extends Command {
                 Terminal.print("Opened page successfully!");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
-                Terminal.print("Failed to open page! Please report this bug in Raven B++'s discord!");
+                Terminal.print("Failed to open page! Please open an issue on the project's GitHub page!");
 
             }
         } else {

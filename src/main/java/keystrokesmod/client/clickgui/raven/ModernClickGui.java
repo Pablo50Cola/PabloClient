@@ -137,9 +137,9 @@ public class ModernClickGui extends GuiScreen {
     }
     
     private void drawTopTabs(int x, int y, int width, int mouseX, int mouseY, float alpha) {
-        int tabWidth = 80;
+        int tabWidth = 56;
         int tabHeight = 30;
-        int tabSpacing = 10;
+        int tabSpacing = 2;
         int totalTabsWidth = tabs.size() * (tabWidth + tabSpacing);
         int startX = x + (width - totalTabsWidth) / 2;
         
@@ -167,7 +167,7 @@ public class ModernClickGui extends GuiScreen {
             // Tab background
             int tabBgColor;
             if (isSelected) {
-                tabBgColor = (int) (animProgress * alpha * 0xFF) << 24 | 0xFF8C00;
+                tabBgColor = (int) (animProgress * alpha * 0xFF) << 24 | 0x0A84FF;
             } else if (isHovered) {
                 tabBgColor = (int) (animProgress * alpha * 0x80) << 24 | 0x404040;
             } else {
@@ -278,12 +278,12 @@ public class ModernClickGui extends GuiScreen {
         RenderUtils.drawRoundedRect(x + 2, y, x + scrollbarWidth - 2, y + height, 3, bgColor);
         
         // Scrollbar thumb
-        int thumbColor = (int) (alpha * 0xFF) << 24 | 0xFF8C00;
+        int thumbColor = (int) (alpha * 0xFF) << 24 | 0x0A84FF;
         RenderUtils.drawRoundedRect(x + 2, scrollbarY, x + scrollbarWidth - 2, scrollbarY + scrollbarHeight, 3, thumbColor);
     }
     
     private void drawWatermark(int x, int y, int width, int height, float alpha) {
-        int watermarkColor = (int) (alpha * 0x80) << 24 | 0xFF8C00;
+        int watermarkColor = (int) (alpha * 0x80) << 24 | 0x0A84FF;
         FontUtil.normal.drawCenteredSmoothString("RAVEN B++", x + width/2, y + height - 20, watermarkColor);
     }
     
@@ -302,7 +302,7 @@ public class ModernClickGui extends GuiScreen {
             RenderUtils.drawRoundedRect(
                     scrollbarX - offset, scrollbarY - offset, 
                     scrollbarX + 8 + offset, scrollbarY + scrollbarHeight + offset, 
-                    4, (glowAlpha << 24) | (0xFF8C00 << 16) | (0x8C00 << 8) | 0x00);
+                    4, (glowAlpha << 24) | 0x0A84FF);
         }
     }
     
@@ -313,7 +313,7 @@ public class ModernClickGui extends GuiScreen {
         for (int corner = 0; corner < 4; corner++) {
             float cornerPulse = (float) Math.sin(currentTime * 0.002 + corner * Math.PI / 2) * 0.5f + 0.5f;
             int cornerAlpha = (int) (50 * alpha * cornerPulse);
-            int cornerColor = (cornerAlpha << 24) | (0xFF8C00 << 16) | (0x8C00 << 8) | 0x00;
+            int cornerColor = (cornerAlpha << 24) | 0x0A84FF;
             
             int cornerX = (corner == 1 || corner == 2) ? x + width - 10 : x;
             int cornerY = (corner >= 2) ? y + height - 10 : y;
@@ -338,8 +338,8 @@ public class ModernClickGui extends GuiScreen {
         }
         
         // Check for tab clicks
-        int tabWidth = 80;
-        int tabSpacing = 10;
+        int tabWidth = 56;
+        int tabSpacing = 2;
         int totalTabsWidth = tabs.size() * (tabWidth + tabSpacing);
         int startX = x + (width - totalTabsWidth) / 2;
         int tabY = y + 5;
@@ -440,7 +440,7 @@ public class ModernClickGui extends GuiScreen {
             
             // Enhanced background with animation
             if (animationProgress > 0.01f) {
-                int bgColor = (int) (animationProgress * 0x60 * globalAlpha) << 24 | 0xFF8C00;
+                int bgColor = (int) (animationProgress * 0x60 * globalAlpha) << 24 | 0x0A84FF;
                 RenderUtils.drawRoundedRect(tx, ty, tx + 95, ty + 35, 8, bgColor);
                 
                 // Add glow effect for selected tabs
@@ -449,7 +449,7 @@ public class ModernClickGui extends GuiScreen {
                     int glowAlpha = (int) (animationProgress * glowPulse * 40 * globalAlpha);
                     for (int i = 3; i >= 0; i--) {
                         int glowSize = i * 3;
-                        int glowColor = (glowAlpha << 24) | (0xFF8C00 << 16) | (0x8C00 << 8) | 0x00;
+                        int glowColor = (glowAlpha << 24) | 0x0A84FF;
                         RenderUtils.drawRoundedRect(tx - glowSize, ty - glowSize, tx + 95 + glowSize, ty + 35 + glowSize, 
                                 8 + glowSize, glowColor);
                     }
@@ -457,7 +457,7 @@ public class ModernClickGui extends GuiScreen {
             }
             
             // Enhanced text with animation
-            int color = selected ? 0xFFFF8C00 : (hover ? 0xFFE0E0E0 : 0xFFAAAAAA);
+            int color = selected ? 0xFF0A84FF : (hover ? 0xFFE0E0E0 : 0xFFAAAAAA);
             color = (int) (globalAlpha * 255) << 24 | (color & 0xFFFFFF);
             float textScale = 1f + animationProgress * 0.15f;
             FontUtil.normal.drawCenteredSmoothString(category.getName(), tx + 47, 
@@ -467,7 +467,7 @@ public class ModernClickGui extends GuiScreen {
             if (selected) {
                 float indicatorPulse = (float) Math.sin(currentTime * 0.005) * 0.6f + 0.4f;
                 int indicatorSize = (int) (4 + indicatorPulse * 3);
-                int indicatorColor = (int) (globalAlpha * 255) << 24 | 0xFF8C00;
+                int indicatorColor = (int) (globalAlpha * 255) << 24 | 0x0A84FF;
                 RenderUtils.drawRoundedRect(tx + 88, ty + 16 - indicatorSize/2, tx + 93, ty + 19 + indicatorSize/2, 
                         3, indicatorColor);
             }
@@ -509,7 +509,7 @@ public class ModernClickGui extends GuiScreen {
             int bgColor;
             if (module.isEnabled()) {
                 float enabledPulse = (float) Math.sin(currentTime * 0.002) * 0.3f + 0.7f;
-                bgColor = (int) (0x50 * enabledPulse * alpha) << 24 | 0xFF8C00;
+                bgColor = (int) (0x50 * enabledPulse * alpha) << 24 | 0x0A84FF;
             } else {
                 int hoverAlpha = (int) (0x30 + hoverAnimation * 0x30);
                 bgColor = (int) (hoverAlpha * alpha) << 24 | 0x404040;
@@ -520,19 +520,19 @@ public class ModernClickGui extends GuiScreen {
             
             // Border for enabled modules
             if (module.isEnabled()) {
-                int borderColor = (int) (alpha * 0xFF) << 24 | 0xFF8C00;
+                int borderColor = (int) (alpha * 0xFF) << 24 | 0x0A84FF;
                 RenderUtils.drawRoundedOutline(bx, by, bx + width, by + height, 6, 2, borderColor);
             }
             
             // Module name
-            int nameColor = module.isEnabled() ? 0xFFFF8C00 : 0xFFFFFF;
+            int nameColor = module.isEnabled() ? 0xFF0A84FF : 0xFFFFFF;
             nameColor = (int) (alpha * 255) << 24 | (nameColor & 0xFFFFFF);
             FontUtil.normal.drawCenteredSmoothString(module.getName(), bx + width/2, by + 12, nameColor);
             
             // Toggle indicator
             float togglePulse = (float) Math.sin(currentTime * 0.004) * 0.4f + 0.6f;
             int toggleSize = (int) (8 + togglePulse * 2);
-            int toggleColor = module.isEnabled() ? 0xFFFF8C00 : 0xFF666666;
+            int toggleColor = module.isEnabled() ? 0xFF0A84FF : 0xFF666666;
             toggleColor = (int) (alpha * 255) << 24 | (toggleColor & 0xFFFFFF);
             RenderUtils.drawRoundedRect(bx + width - 20, by + 20, bx + width - 8, by + 32, 4, toggleColor);
             
@@ -549,7 +549,7 @@ public class ModernClickGui extends GuiScreen {
                     if (s instanceof TickSetting) {
                         TickSetting ts = (TickSetting) s;
                         FontUtil.normal.drawSmoothString(ts.getName(), bx + 10, sy + 6, (int)(alpha * 255) << 24 | 0xCCCCCC);
-                        int boxColor = ts.isToggled() ? 0xFFFF8C00 : 0xFF404040;
+                        int boxColor = ts.isToggled() ? 0xFF0A84FF : 0xFF404040;
                         RenderUtils.drawRoundedRect(bx + width - 30, sy + 4, bx + width - 10, sy + 16, 4, (int)(alpha * 255) << 24 | (boxColor & 0xFFFFFF));
                         if (ts.isToggled()) {
                             RenderUtils.drawRoundedRect(bx + width - 18, sy + 6, bx + width - 12, sy + 14, 3, (int)(alpha * 255) << 24 | 0xFFFFFF);
@@ -560,7 +560,7 @@ public class ModernClickGui extends GuiScreen {
                         SliderSetting ss = (SliderSetting) s;
                         FontUtil.normal.drawSmoothString(ss.getName(), bx + 10, sy + 2, (int)(alpha * 255) << 24 | 0xCCCCCC);
                         String valStr = String.format("%.1f", ss.getInput());
-                        FontUtil.normal.drawSmoothString(valStr, bx + width - 10 - FontUtil.normal.getStringWidth(valStr), sy + 2, (int)(alpha * 255) << 24 | 0xFFFF8C00);
+                        FontUtil.normal.drawSmoothString(valStr, bx + width - 10 - FontUtil.normal.getStringWidth(valStr), sy + 2, (int)(alpha * 255) << 24 | 0xFF0A84FF);
                         
                         int sliderStartX = bx + 10;
                         int sliderEndX = bx + width - 10;
@@ -569,13 +569,13 @@ public class ModernClickGui extends GuiScreen {
                         RenderUtils.drawRoundedRect(sliderStartX, sy + 14, sliderEndX, sy + 18, 2, (int)(alpha * 255) << 24 | 0x404040);
                         double percent = (ss.getInput() - ss.getMin()) / (ss.getMax() - ss.getMin());
                         int fillWidth = (int) (sliderWidth * percent);
-                        RenderUtils.drawRoundedRect(sliderStartX, sy + 14, sliderStartX + fillWidth, sy + 18, 2, (int)(alpha * 255) << 24 | 0xFFFF8C00);
+                        RenderUtils.drawRoundedRect(sliderStartX, sy + 14, sliderStartX + fillWidth, sy + 18, 2, (int)(alpha * 255) << 24 | 0xFF0A84FF);
                         RenderUtils.drawRoundedRect(sliderStartX + fillWidth - 3, sy + 12, sliderStartX + fillWidth + 3, sy + 20, 3, (int)(alpha * 255) << 24 | 0xFFFFFF);
                     } else if (s instanceof ComboSetting) {
                         ComboSetting<?> cs = (ComboSetting<?>) s;
                         FontUtil.normal.drawSmoothString(cs.getName() + ":", bx + 10, sy + 6, (int)(alpha * 255) << 24 | 0xCCCCCC);
                         String mode = cs.getMode().toString();
-                        FontUtil.normal.drawSmoothString(mode, bx + width - 10 - FontUtil.normal.getStringWidth(mode), sy + 6, (int)(alpha * 255) << 24 | 0xFFFF8C00);
+                        FontUtil.normal.drawSmoothString(mode, bx + width - 10 - FontUtil.normal.getStringWidth(mode), sy + 6, (int)(alpha * 255) << 24 | 0xFF0A84FF);
                     }
                     sy += 22;
                 }

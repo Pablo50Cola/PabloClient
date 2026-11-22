@@ -238,12 +238,12 @@ public class ClickGui extends GuiScreen {
             
             if (GuiModule.useCustomFont())
 				FontUtil.normal.drawSmoothString(
-			            "Raven B++ v" + clientVersion + " | Config: " + Raven.configManager.getConfig().getName(),
+			            "Pablo Client v" + clientVersion + " | Config: " + Raven.configManager.getConfig().getName(),
 			            versionBoxX + 5, versionBoxY + 6,
 			            Utils.Client.astolfoColorsDraw(10, 14, speed));
 			else
 				mc.fontRendererObj.drawStringWithShadow(
-			            "Raven B++ v" + clientVersion + " | Config: " + Raven.configManager.getConfig().getName(),
+			            "Pablo Client v" + clientVersion + " | Config: " + Raven.configManager.getConfig().getName(),
 			            versionBoxX + 5, versionBoxY + 6,
 			            Utils.Client.astolfoColorsDraw(10, 14, speed));
         }
@@ -348,7 +348,7 @@ public class ClickGui extends GuiScreen {
             long timeSinceSearch = System.currentTimeMillis() - lastSearchTime;
             if (timeSinceSearch < SEARCH_TIMEOUT) {
                 float searchAlpha = Math.max(0f, 1f - (timeSinceSearch / (float) SEARCH_TIMEOUT));
-                int searchColor = (int) (255 * searchAlpha) << 24 | 0xFFFF8C00;
+                int searchColor = (int) (255 * searchAlpha) << 24 | 0xFF0A84FF;
                 
                 int padding = 6;
                 int textWidth = (int) FontUtil.normal.getStringWidth("Search: " + searchQuery);
