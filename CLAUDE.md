@@ -8,6 +8,7 @@ Pablo Client is a Forge 1.8.9 client mod (Java 8, Mixin), GPL-3.0, built on Rave
 - `build.gradle` embeds `libs/discord-rpc.jar` via `fileTree`; that jar is not in `libs/`, so check whether anything still needs it before relying on it.
 - **Mixin must stay on 0.7.11-SNAPSHOT** (embedded via Sponge maven). 0.6 is too old (`@Accessor`), and 0.8.x needs ASM 6+, which 1.8.9 lacks (crashes with `NoClassDefFoundError ... ClassRemapper`). `libs/mixin-0.8.5.jar` is not used.
 - Phase 2 (HUD widgets, branch `phase2/hud-widgets`) builds and launches (owner verified HUD widgets and the perf overlay); editor and persistence still to be confirmed.
+- Phase 3 (more widgets, branch `phase3/widgets`) is written but not yet built or tested.
 - Verified by the owner: Phase 1 compiles on JDK 8, launches on Forge 1.8.9, the old modules work in singleplayer and the `uidemo` screen renders correctly.
 - The cloud sandbox cannot reach the build hosts, so code changes written there are unbuilt: the owner compiles and tests locally. API names written from memory may need a fix after the first build; ask for the compile output.
 

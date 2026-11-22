@@ -20,43 +20,34 @@ Three things matter, in this order:
 | 0 | Design language and HTML mockup | **Done**, approved by the owner (mockup: dark iOS look, glass cards, Dynamic-Island-style pill) |
 | 1 | Rendering toolkit | **Done**, verified in game by the owner (blur, shadows, springs, components; 0.35 to 0.52 ms CPU) |
 | 2 | HUD widget system | **Builds and runs** (owner screenshot: watermark, keybinds and `perf` overlay correct, 0.19 ms client frame time, 60 FPS). Branch `phase2/hud-widgets`, jar `PabloClient-1.3.0-phase2.jar`. Still to confirm: editor, saved positions after restart and resize |
-| 3 | Widgets | Planned |
+| 3 | Widgets | **Written, not yet built or tested.** Branch `phase3/widgets`, jar `PabloClient-1.3.0-phase3.jar` |
 | 4 | Notifications | Planned |
 | 5 | Menus | Planned |
 | 6 | Polish (themes, font, icons, presets) | Planned |
 | 7 | Release | Planned |
 
-## Next action: verify Phase 2, then Phase 3
+## Next action: verify Phase 3
 
-Phase 2 is on branch `phase2/hud-widgets`. The owner built it and it launches; the HUD widgets and the perf overlay were seen working (0.19 ms, 60 FPS). Remaining checks:
+Phase 3 is on branch `phase3/widgets` (built on `phase2/hud-widgets`), jar `PabloClient-1.3.0-phase3.jar`. **Written, not yet compiled or run.** The owner said "phase 3 is a go", so Phase 2 counts as accepted; one Phase 2 report is still open (see below).
 
-1. ~~Build and launch~~ done.
-2. The owner launches the game and checks, in the same world and spot:
-   - the HUD module on: module list, watermark and keybinds box look and sit where they did before;
-   - `hudedit` opens the editor; widgets can be dragged (snapping), switched on/off, scaled and faded; Esc closes it;
-   - positions survive restarting the game and resizing the window;
-   - `perf` prints the numbers, `perf overlay` shows them live;
-   - client frame time and FPS with the HUD off and on (screenshot of the overlay is enough).
-3. After the owner confirms, merge into `main` through a pull request, mark Phase 2 done here and start **Phase 3 (widgets)**: FPS, CPS, ping, coordinates, clock, armor and potion status, keystrokes, and real widgets for the Target HUD and the Radar (replacing `LegacyBoxWidget`).
+New widgets, all **off by default**, switched on in the `hudedit` editor (each has scale and opacity):
+- `FpsWidget`, `CpsWidget` (left | right, timestamps from the Forge mouse event), `PingWidget` (tab-list latency, "-- ms" in singleplayer), `CoordsWidget`, `ClockWidget`: one-line pills (`TextPillWidget`), value read 1 to 10 times a second, text rebuilt only when the value changes.
+- `ArmorWidget`: worn armor as item icons with durability percent; hides when nothing is worn.
+- `PotionWidget`: active effects with vanilla icon, name, level and time left (up to 6).
+- `KeystrokesWidget`: W A S D, LMB, RMB, space; follows the game's key bindings; fades on press.
 
-What Phase 2 contains (see `docs/UI_TOOLKIT.md`, section "HUD widget system"):
-- `ui/hud/Widget`, `Anchor`, `WidgetManager`: anchor + offset positions that survive window resizes, scale, opacity, one render pass per frame inside one `FrameCost` pair.
-- Saved in `clientconfig.kv` under `"widgets"`; missing or damaged fields fall back to defaults; the old positions are carried over once.
-- `HudEditorScreen`: drag and drop with snapping, selection panel, mouse wheel scale, arrow-key nudging. Opened by `hudedit`, the HUD module's "Edit position" switch, or the HUDEditor module.
-- `perf` command and a `PerfWidget` overlay (off by default).
-- The old HUD module no longer draws anything itself: module list, watermark and keybinds are widgets that use the module's settings and still only show while it is on. Target HUD and Radar still draw themselves (and keep their saved position in `hudpos.json`); the editor can move them.
+Owner test: build, launch, open `hudedit`, switch each widget on, check it shows the right values, then screenshot with all on plus the `perf overlay` numbers (client frame time with everything on).
 
-Acceptance (owner reports): widgets can be moved, enabled and disabled; positions survive a restart and a window resize; all old HUD features still work; client frame time and FPS with the HUD on and off.
-
-Known gaps carried into later phases:
-- The old HUD "Logo" setting did nothing even before Phase 2 (the logo image was never loaded), so no logo widget exists. The settings are still there, untouched.
-- The module list keeps the old settings (colour mode, shadow, background); they move into per-widget settings in Phase 5 when the old GUIs go.
+Open items:
+- Phase 2: the owner reported "some modules stayed where I left them, others moved" after the update. Not yet understood; need which widgets moved and where they were before. The hover blackout in the editor was fixed (frame now drawn with plain rectangles); confirm.
+- Phase 2 and 3 are not merged into `main` yet; merge after the owner confirms.
+- Still to do from Phase 3's original list: real widgets for Target HUD and Radar (replace `LegacyBoxWidget`) and per-widget settings (text colour, background on/off). Planned as Phase 3b after this test.
 
 ## Phases in detail
 
 0. **Design language.** Dark-first iOS palette (`ui/gfx/Colors`), radii around 12 to 18 for cards, spacing on a 4/8 grid, spring timings, Inter font (open licence), open icon set. Done as an HTML mockup first so look decisions are cheap.
 1. **Rendering toolkit.** SDF-shader rounded rectangles with gradient, outline and soft shadow; low-resolution frosted-glass blur; spring/tween animation; clipping; text helpers; quality presets; demo screen (`uidemo`). Done.
-2. **HUD widget system.** Anchored widgets, manager, saved layout, drag-and-drop editor, `perf` command, old HUD migrated. Code written; awaiting the owner's test.
+2. **HUD widget system.** Anchored widgets, manager, saved layout, drag-and-drop editor, `perf` command, old HUD migrated. Built and running; one position report open.
 3. **Widgets.** FPS, CPS, ping, coordinates, clock, armor and potion status, keystrokes, module-list pill. Each is a `Widget` subclass with its own settings, text cached until the value changes.
 4. **Notifications.** iOS-style banners and a Dynamic-Island-style pill for module toggles, queued and animated with springs.
 5. **Menus.** Settings-app-style ClickGUI (grouped lists, animated switches, sliders, segmented controls), restyled main menu, and removal of the two old GUIs (`clickgui/raven`, `clickgui/kv`) once the new one covers everything.

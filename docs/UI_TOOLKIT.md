@@ -51,6 +51,8 @@ Everything lives in `src/main/java/keystrokesmod/client/ui/hud/`.
 | `HudEditorScreen` | Drag-and-drop editor. Snaps to screen edges/centre and other widgets (Shift = no snap), arrow keys nudge, mouse wheel scales, bottom panel: enable switch, scale, opacity, reset, reset all, done. |
 | `widgets/ModuleListWidget`, `WatermarkWidget`, `KeybindsWidget` | The old HUD module's drawing, moved out. They read the HUD module's settings and only show while it is on. |
 | `widgets/PerfWidget` | Frame cost / FPS / draw calls overlay. Off by default (`perf overlay`). |
+| `widgets/TextPillWidget` | Base of the one-line pills. Subclasses implement `sample()` (cheap value, a `long`) and `build(StringBuilder, key)`; the text is rebuilt only when the value changes. Used by `FpsWidget`, `CpsWidget`, `PingWidget`, `CoordsWidget`, `ClockWidget` (Phase 3). |
+| `widgets/ArmorWidget`, `PotionWidget`, `KeystrokesWidget` | Phase 3 widgets that draw item icons, effect icons and keys. All new widgets are off by default. |
 | `widgets/LegacyBoxWidget` | Editor-only stand-in for Target HUD and Radar, which still draw themselves and keep their position in `hudpos.json`. Replaced by real widgets in Phase 3. |
 
 Commands: `hudedit` (alias `widgets`) opens the editor; `perf` prints the numbers; `perf overlay [on|off]` toggles the overlay.
