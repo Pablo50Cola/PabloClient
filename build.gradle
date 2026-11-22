@@ -23,7 +23,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'java'
 
-version = "1.3.0-phase3c"
+version = "1.4.0-phase4"
 group = "keystrokesmod"
 archivesBaseName = "PabloClient"
 

@@ -21,21 +21,29 @@ Three things matter, in this order:
 | 1 | Rendering toolkit | **Done**, verified in game by the owner (blur, shadows, springs, components; 0.35 to 0.52 ms CPU) |
 | 2 | HUD widget system | **Builds and runs** (owner screenshot: watermark, keybinds and `perf` overlay correct, 0.19 ms client frame time, 60 FPS). Branch `phase2/hud-widgets`, jar `PabloClient-1.3.0-phase2.jar`. Still to confirm: editor, saved positions after restart and resize |
 | 3 | Widgets | **Done except the owner's test of 3c.** Branch `phase3/widgets`, jar `PabloClient-1.3.0-phase3c.jar` |
-| 4 | Notifications | Planned |
+| 4 | Notifications | **Written, not yet built or tested.** Branch `phase4/notifications` (built on `phase3/widgets`), jar `PabloClient-1.4.0-phase4.jar` |
 | 5 | Menus | Planned |
 | 6 | Polish (themes, font, icons, presets) | Planned |
 | 7 | Release | Planned |
 
-## Next action: verify Phase 3c, then Phase 4
+## Next action: verify Phase 3c and Phase 4
 
-Phase 3 is complete in code on branch `phase3/widgets`, jar `PabloClient-1.3.0-phase3c.jar`. The first eight widgets and the CPS/keystrokes rework were tested by the owner and work. **Phase 3c is written, not yet compiled or run:** Radar and Target HUD as real widgets (`RadarWidget`, `TargetHudWidget`; the modules no longer draw on their own), a Background switch and text colour swatches for pills, CPS, perf, armor and potions.
+Phase 3c (branch `phase3/widgets`) and Phase 4 (branch `phase4/notifications`, which contains 3c) are written but not yet built or run. Test the Phase 4 jar `PabloClient-1.4.0-phase4.jar`, it covers both.
 
-Owner test: build, open `hudedit`, check Target HUD and Radar show in the editor (Target HUD shows yourself as sample), can be moved/scaled/switched off, and that they appear where they were before. Turn the Radar and Target HUD modules on and check them in the game. Try Background off and a colour on the FPS pill.
+Phase 4 (iOS-style notifications), reworking the old `notifications` package; the "Notifications" switch of the Gui module is still the master switch:
+- Island: a black pill at the top centre when a module is switched on or off. Grows out of a dot on a springy width, holds about 2 s, shrinks away.
+- Banners: rounded cards sliding in from the right on a spring, stacked top right, up to 4 at once, rest queued. Types: info, success, warning, error (coloured dot).
+- API: `NotificationManager.info/success/warning/error(title, message)`, `island(name, on)`. Command `notify [info|success|warning|error] <text>` (no arguments = demo).
+
+Owner test: build, switch on Gui module > Notifications, type `notify` (demo of all), toggle a module with its key and watch the island. Check client frame time with `perf overlay` while a notification shows.
+
+Phase 3c test: Radar and Target HUD in `hudedit` (movable, scalable, show where they were before), Background switch and colour swatches on pills.
 
 Open items:
 - Phase 2 report "some modules stayed where I left them, others moved" is still not understood.
-- Phase 2 and 3 are not merged into `main`; merge after the owner confirms 3c.
-- Opacity does not apply to Target HUD and Radar (they use fixed colours); module list, watermark and keybinds keep their old module settings until Phase 5.
+- Phases 2, 3, 4 are not merged into `main`; merge after the owner confirms.
+- Banners are only used by the `notify` command so far; real events (config loaded, update available, ...) come with the menus in Phase 5.
+- Opacity does not apply to Target HUD and Radar; module list, watermark and keybinds keep their old module settings until Phase 5.
 
 ## Phases in detail
 

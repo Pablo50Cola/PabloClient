@@ -35,6 +35,7 @@ public class CommandManager {
         this.addCommand(new UiDemo());
         this.addCommand(new Perf());
         this.addCommand(new HudEdit());
+        this.addCommand(new Notify());
 
     }
 

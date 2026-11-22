@@ -1,68 +1,41 @@
 package keystrokesmod.client.notifications;
 
-import keystrokesmod.client.utils.RenderUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
+import keystrokesmod.client.ui.anim.Spring;
 
+/**
+ * One banner (Phase 4). Holds its text, its lifetime and the two springs the manager animates:
+ * {@link #slide} (1 = off the right edge, 0 = in place) and {@link #y} (the stack position).
+ */
 public class Notification {
-    private NotificationType type;
-    private String title;
-    private String messsage;
-    private long start;
-    public long fadedIn;
-    public long fadeOut;
-    public long end;
-    public float currentY;
-    public float targetY;
+    final NotificationType type;
+    final String title;
+    final String message;
+    final long lifeMs;
 
-    public Notification(NotificationType type, String title, String messsage, int length) {
+    long start;
+    boolean leaving;
+    boolean placed;
+    float width;
+    final Spring slide = new Spring(1f);
+    final Spring y = new Spring(0f);
+
+    /** @param length lifetime multiplier: 1 = 3 seconds */
+    public Notification(NotificationType type, String title, String message, int length) {
         this.type = type;
         this.title = title;
-        this.messsage = messsage;
-        fadedIn = 200L * length;
-        fadeOut = fadedIn + 1500L * length;
-        end = fadeOut + 300L * length;
+        this.message = message;
+        this.lifeMs = 3000L * Math.max(1, length);
+        slide.stiffness = 240f;
+        slide.damping = 22f;
     }
 
     public void show() {
         start = System.currentTimeMillis();
+        slide.snap(1f);
+        slide.setTarget(0f);
     }
 
     public boolean isShown() {
-        return getTime() <= end;
-    }
-
-    public long getTime() {
-        return System.currentTimeMillis() - start;
-    }
-
-    public int getWidth() {
-        FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
-        int titleW = fr.getStringWidth(title);
-        int msgW = fr.getStringWidth(messsage);
-        return Math.max(Math.max(titleW, msgW) + 24, 120);
-    }
-
-    public int getHeight() {
-        return 30;
-    }
-
-    public void render(int x, float y, float alpha) {
-        if (alpha <= 0.01f) return;
-
-        int width = getWidth();
-        int height = getHeight();
-
-        int bgColor = ((int) (0x90 * alpha) << 24) | 0x101010;
-        int borderColor = ((int) (0xFF * alpha) << 24) | 0xFF8C00;
-
-        RenderUtils.drawBorderedRoundedRect(x, y, x + width, y + height, 4, 1, borderColor, bgColor);
-
-        FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
-        int textColor = ((int) (0xFF * alpha) << 24) | 0xFFFFFF;
-        int subColor = ((int) (0xCC * alpha) << 24) | 0xCCCCCC;
-
-        fr.drawString(title, x + 8, (int) y + 5, textColor);
-        fr.drawString(messsage, x + 8, (int) y + 17, subColor);
+        return !leaving || slide.get() < 0.98f;
     }
 }
