@@ -19,31 +19,24 @@ Three things matter, in this order:
 |---|---|---|
 | 0 | Design language and HTML mockup | **Done**, approved by the owner (mockup: dark iOS look, glass cards, Dynamic-Island-style pill) |
 | 1 | Rendering toolkit | **Done**, verified in game by the owner (blur, shadows, springs, components; 0.35 to 0.52 ms CPU) |
-| 2 | HUD widget system | **Builds and runs** (owner screenshot: watermark, keybinds and `perf` overlay correct, 0.19 ms client frame time, 60 FPS). Branch `phase2/hud-widgets`, jar `PabloClient-1.3.0-phase2.jar`. Still to confirm: editor, saved positions after restart and resize |
-| 3 | Widgets | **Done except the owner's test of 3c.** Branch `phase3/widgets`, jar `PabloClient-1.3.0-phase3c.jar` |
-| 4 | Notifications | **Written, not yet built or tested.** Branch `phase4/notifications` (built on `phase3/widgets`), jar `PabloClient-1.4.2-phase4.jar` |
-| 5 | Menus | Planned |
+| 2 | HUD widget system | **Done, merged into `main`.** Verified by the owner |
+| 3 | Widgets | **Done, merged into `main`.** Includes Radar/Target HUD widgets and per-widget style |
+| 4 | Notifications | **Done, merged into `main`** (jar `PabloClient-1.4.2-phase4.jar`). Island + banners + `notify` |
+| 5 | Menus | **Next.** Branch `phase5/menus` |
 | 6 | Polish (themes, font, icons, presets) | Planned |
 | 7 | Release | Planned |
 
-## Next action: verify Phase 3c and Phase 4
+## Next action: Phase 5, menus
 
-Phase 3c (branch `phase3/widgets`) and Phase 4 (branch `phase4/notifications`, which contains 3c) are written but not yet built or run. Test the Phase 4 jar `PabloClient-1.4.2-phase4.jar`, it covers both.
+Phases 1-4 are merged into `main` and verified. Phase 5 replaces the two old ClickGUIs with one minimal iOS-style menu built on the `ui/` toolkit.
 
-Phase 4 (iOS-style notifications), reworking the old `notifications` package; banners always work; the Gui module tick "Toggle island" (default on) only controls the island:
-- Island: a black pill at the top centre when a module is switched on or off. Grows out of a dot on a springy width, holds about 2 s, shrinks away.
-- Banners: rounded cards sliding in from the right on a spring, stacked top right, up to 4 at once, rest queued. Types: info, success, warning, error (coloured dot).
-- API: `NotificationManager.info/success/warning/error(title, message)`, `island(name, on)`. Command `notify [info|success|warning|error] <text>` (no arguments = demo).
-
-Owner test: build, type `notify` (demo of all), toggle a module with its key and watch the island. Check client frame time with `perf overlay` while a notification shows.
-
-Phase 3c test: Radar and Target HUD in `hudedit` (movable, scalable, show where they were before), Background switch and colour swatches on pills.
-
-Open items:
-- Phase 2 report "some modules stayed where I left them, others moved" is still not understood.
-- Phases 2, 3, 4 are not merged into `main`; merge after the owner confirms.
-- Banners are only used by the `notify` command so far; real events (config loaded, update available, ...) come with the menus in Phase 5.
-- Opacity does not apply to Target HUD and Radar; module list, watermark and keybinds keep their old module settings until Phase 5.
+Owner feedback to respect:
+- The old menu (`ModernClickGui`) is "ugly and buggy": its 10 category tabs did not fit (Other, Client were off the panel; only patched in 1.4.1). Orange/brown is unwanted, the look must be minimal: dark surfaces, white text, blue accent (`Colors.ACCENT`), green for on.
+- Layout idea: categories in a sidebar or segmented list, module rows with a `UiSwitch` (the owner found the full-size switch too large in small rows; use `draw(x, y, scale)`), settings in a detail pane (Settings-app style).
+- Fold the HUD editor entry, notification banners (config loaded, update available, ...) and the `Toggle island` setting into the new menu.
+- Then remove `clickgui/raven` and `clickgui/kv` (keep `Terminal`, it is used by commands) and the module list/watermark/keybinds dependency on the HUD module's old settings (give them widget settings: opacity, colour).
+- Remaining orange defaults live in `GuiModule` (preset colours) and old module settings; replace with the palette.
+- Still open: owner's Phase 2 remark "some modules stayed where I left them, others moved" was never clarified.
 
 ## Phases in detail
 
