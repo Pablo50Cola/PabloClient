@@ -28,13 +28,13 @@ Three things matter, in this order:
 
 ## Next action: verify Phase 3
 
-Phase 3 is on branch `phase3/widgets` (built on `phase2/hud-widgets`), jar `PabloClient-1.3.0-phase3.jar`. **Written, not yet compiled or run.** The owner said "phase 3 is a go", so Phase 2 counts as accepted; one Phase 2 report is still open (see below).
+Phase 3 is on branch `phase3/widgets` (built on `phase2/hud-widgets`), jar `PabloClient-1.3.0-phase3b.jar`. Phase 3 built and ran fine (owner); the CPS/keystrokes rework below is **written, not yet compiled or run.** The owner said "phase 3 is a go", so Phase 2 counts as accepted; one Phase 2 report is still open (see below).
 
 New widgets, all **off by default**, switched on in the `hudedit` editor (each has scale and opacity):
-- `FpsWidget`, `CpsWidget` (left | right, timestamps from the Forge mouse event), `PingWidget` (tab-list latency, "-- ms" in singleplayer), `CoordsWidget`, `ClockWidget`: one-line pills (`TextPillWidget`), value read 1 to 10 times a second, text rebuilt only when the value changes.
+- `FpsWidget`, `CpsWidget` (left | right, counted from the clicks the game performs via `ClickStats`, so the clickers register; eased numbers, flash per click, speed bar), `PingWidget` (tab-list latency, "-- ms" in singleplayer), `CoordsWidget`, `ClockWidget`: one-line pills (`TextPillWidget`), value read 1 to 10 times a second, text rebuilt only when the value changes.
 - `ArmorWidget`: worn armor as item icons with durability percent; hides when nothing is worn.
 - `PotionWidget`: active effects with vanilla icon, name, level and time left (up to 6).
-- `KeystrokesWidget`: W A S D, LMB, RMB, space; follows the game's key bindings; fades on press.
+- `KeystrokesWidget`: wide layout, W A S D, LMB/RMB with live CPS, space; follows the game's key bindings; keys fade, sink when pressed and flash on every click.
 
 Owner test: build, launch, open `hudedit`, switch each widget on, check it shows the right values, then screenshot with all on plus the `perf overlay` numbers (client frame time with everything on).
 

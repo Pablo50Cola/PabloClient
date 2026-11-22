@@ -72,9 +72,7 @@ public final class WidgetManager {
         register(new KeybindsWidget());
         register(new PerfWidget());
         register(new FpsWidget());
-        CpsWidget cps = new CpsWidget();
-        Raven.register(cps); // click timestamps come from the Forge mouse event
-        register(cps);
+        register(new CpsWidget());
         register(new PingWidget());
         register(new CoordsWidget());
         register(new ClockWidget());
