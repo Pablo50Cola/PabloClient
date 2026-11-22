@@ -100,7 +100,7 @@ public class KvCompactGui extends GuiScreen {
         int iconGlowAlpha = (int) (iconPulse * 40);
         for (int i = 2; i >= 0; i--) {
             int glowSize = i * 3;
-            int glowColor = (iconGlowAlpha << 24) | (0xFF8C00 << 16) | (0x8C00 << 8) | 0x00;
+            int glowColor = (iconGlowAlpha << 24) | 0x0A84FF;
             RenderUtils.drawRoundedRect(
                     containerX + 1 - glowSize,
                     containerY + 1 - glowSize,
@@ -165,7 +165,7 @@ public class KvCompactGui extends GuiScreen {
             float particleY = containerY + (float) (Math.cos(currentTime * 0.0015 + i * 2) * containerHeight * 0.8);
             float particleSize = 2 + (float) Math.sin(currentTime * 0.003 + i) * 1;
             int particleAlpha = (int) (30 + Math.sin(currentTime * 0.002 + i * 3) * 20);
-            int particleColor = (particleAlpha << 24) | (0xFF8C00 << 16) | (0x8C00 << 8) | 0x00;
+            int particleColor = (particleAlpha << 24) | 0x0A84FF;
             
             drawRect((int) (particleX - particleSize/2), (int) (particleY - particleSize/2), 
                     (int) (particleX + particleSize/2), (int) (particleY + particleSize/2), particleColor);

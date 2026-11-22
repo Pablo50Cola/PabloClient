@@ -196,7 +196,7 @@ public class HudEditorScreen extends GuiScreen {
                 float sty = sy + (BTN_H - UiText.height()) / 2f;
                 if (w.hasBackgroundOption()) {
                     UiText.draw("Background", panelX + PAD, sty, Colors.LABEL_SECONDARY);
-                    backgroundSwitch.draw(panelX + 90f, sy + 1f);
+                    backgroundSwitch.draw(panelX + 84f, sy + 5f, 0.7f);
                 }
                 if (w.hasColorOption()) {
                     UiText.draw("Color", panelX + 170f, sty, Colors.LABEL_SECONDARY);
@@ -311,7 +311,7 @@ public class HudEditorScreen extends GuiScreen {
         }
 
         float sy = panelY + 74f;
-        if (w.hasBackgroundOption() && backgroundSwitch.hit(panelX + 90f, sy + 1f, mouseX, mouseY)) {
+        if (w.hasBackgroundOption() && backgroundSwitch.hit(panelX + 84f, sy + 5f, 0.7f, mouseX, mouseY)) {
             backgroundSwitch.toggle();
             w.setBackground(backgroundSwitch.isOn());
             persist();

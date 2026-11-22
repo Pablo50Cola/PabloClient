@@ -348,7 +348,7 @@ public class ClickGui extends GuiScreen {
             long timeSinceSearch = System.currentTimeMillis() - lastSearchTime;
             if (timeSinceSearch < SEARCH_TIMEOUT) {
                 float searchAlpha = Math.max(0f, 1f - (timeSinceSearch / (float) SEARCH_TIMEOUT));
-                int searchColor = (int) (255 * searchAlpha) << 24 | 0xFFFF8C00;
+                int searchColor = (int) (255 * searchAlpha) << 24 | 0xFF0A84FF;
                 
                 int padding = 6;
                 int textWidth = (int) FontUtil.normal.getStringWidth("Search: " + searchQuery);

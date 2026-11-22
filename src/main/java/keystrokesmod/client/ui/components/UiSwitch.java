@@ -38,12 +38,21 @@ public final class UiSwitch {
     }
 
     public void draw(float x, float y) {
-        float t = knob.get();
-        Gfx.roundRect(x, y, WIDTH, HEIGHT, HEIGHT / 2f, Colors.lerp(Colors.SWITCH_OFF, Colors.GREEN, t));
+        draw(x, y, 1f);
+    }
 
-        float kx = x + INSET + t * TRAVEL;
-        float ky = y + INSET;
-        Gfx.shadow(kx, ky, KNOB, KNOB, KNOB / 2f, 4f, 1.5f, 0x55000000);
-        Gfx.circle(kx + KNOB / 2f, ky + KNOB / 2f, KNOB / 2f, 0xFFFFFFFF);
+    /** Smaller (or larger) version; {@code s} = 1 is the normal size. */
+    public void draw(float x, float y, float s) {
+        float t = knob.get();
+        Gfx.roundRect(x, y, WIDTH * s, HEIGHT * s, HEIGHT * s / 2f, Colors.lerp(Colors.SWITCH_OFF, Colors.GREEN, t));
+
+        float kx = x + (INSET + t * TRAVEL) * s;
+        float ky = y + INSET * s;
+        Gfx.shadow(kx, ky, KNOB * s, KNOB * s, KNOB * s / 2f, 4f * s, 1.5f * s, 0x55000000);
+        Gfx.circle(kx + KNOB * s / 2f, ky + KNOB * s / 2f, KNOB * s / 2f, 0xFFFFFFFF);
+    }
+
+    public boolean hit(float x, float y, float s, float mouseX, float mouseY) {
+        return mouseX >= x && mouseX <= x + WIDTH * s && mouseY >= y && mouseY <= y + HEIGHT * s;
     }
 }

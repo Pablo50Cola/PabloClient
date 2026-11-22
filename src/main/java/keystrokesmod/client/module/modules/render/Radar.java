@@ -49,7 +49,7 @@ public class Radar extends Module {
         RenderUtils.drawRoundedRect(radarX, radarY, radarX + s, radarY + s, 8, 0xCC1C1C1E);
         
         // Border
-        RenderUtils.drawBorderedRoundedRect(radarX, radarY, radarX + s, radarY + s, 8, 2, 0xFFFF8C00, 0x00000000);
+        RenderUtils.drawBorderedRoundedRect(radarX, radarY, radarX + s, radarY + s, 8, 2, 0xFF0A84FF, 0x00000000);
         
         // Center lines
         Gui.drawRect(cx - halfS, cy - 1, cx + halfS, cy + 1, 0x20FFFFFF);
@@ -59,7 +59,7 @@ public class Radar extends Module {
         FontUtil.two.drawString("Radar", radarX + 5, radarY + 5, 0xFFFFFFFF);
         
         // Self
-        RenderUtils.drawRoundedRect(cx - 2, cy - 2, cx + 2, cy + 2, 2, 0xFFFF8C00);
+        RenderUtils.drawRoundedRect(cx - 2, cy - 2, cx + 2, cy + 2, 2, 0xFF0A84FF);
 
         // Players
         double radarScale = scale.getInput();

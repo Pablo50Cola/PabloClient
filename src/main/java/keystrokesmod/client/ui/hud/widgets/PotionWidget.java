@@ -24,7 +24,7 @@ public final class PotionWidget extends Widget {
     private static final int MAX = 6;
     private static final long REFRESH_MS = 250L;
     private static final float PAD = 6f;
-    private static final float ROW = 22f;
+    private static final float ROW = 28f;
     private static final ResourceLocation ICONS = new ResourceLocation("textures/gui/container/inventory.png");
     private static final Gui GUI = new Gui();
 
@@ -122,7 +122,7 @@ public final class PotionWidget extends Widget {
     @Override
     public void measure() {
         refresh();
-        width = PAD * 2f + 18f + 6f + textWidth;
+        width = PAD * 2f + 18f + 8f + textWidth;
         height = PAD * 2f + count * ROW - 2f;
         if (height < 1f) height = 1f;
     }
@@ -137,12 +137,12 @@ public final class PotionWidget extends Widget {
             mc.getTextureManager().bindTexture(ICONS);
             GlStateManager.color(1f, 1f, 1f, opacity);
             GlStateManager.enableBlend();
-            GUI.drawTexturedModalRect((int) PAD, (int) y, icon % 8 * 18, 198 + icon / 8 * 18, 18, 18);
+            GUI.drawTexturedModalRect((int) PAD, (int) (y + 4f), icon % 8 * 18, 198 + icon / 8 * 18, 18, 18);
             GlStateManager.disableBlend();
             GlStateManager.color(1f, 1f, 1f, 1f);
 
-            UiText.draw(names[i], PAD + 24f, y + 1f, textColor());
-            UiText.draw(times[i], PAD + 24f, y + 11f, fade(Colors.LABEL_SECONDARY));
+            UiText.draw(names[i], PAD + 26f, y + 3f, textColor());
+            UiText.draw(times[i], PAD + 26f, y + 15f, fade(Colors.LABEL_SECONDARY));
             y += ROW;
         }
     }

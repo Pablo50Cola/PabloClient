@@ -21,14 +21,14 @@ Three things matter, in this order:
 | 1 | Rendering toolkit | **Done**, verified in game by the owner (blur, shadows, springs, components; 0.35 to 0.52 ms CPU) |
 | 2 | HUD widget system | **Builds and runs** (owner screenshot: watermark, keybinds and `perf` overlay correct, 0.19 ms client frame time, 60 FPS). Branch `phase2/hud-widgets`, jar `PabloClient-1.3.0-phase2.jar`. Still to confirm: editor, saved positions after restart and resize |
 | 3 | Widgets | **Done except the owner's test of 3c.** Branch `phase3/widgets`, jar `PabloClient-1.3.0-phase3c.jar` |
-| 4 | Notifications | **Written, not yet built or tested.** Branch `phase4/notifications` (built on `phase3/widgets`), jar `PabloClient-1.4.1-phase4.jar` |
+| 4 | Notifications | **Written, not yet built or tested.** Branch `phase4/notifications` (built on `phase3/widgets`), jar `PabloClient-1.4.2-phase4.jar` |
 | 5 | Menus | Planned |
 | 6 | Polish (themes, font, icons, presets) | Planned |
 | 7 | Release | Planned |
 
 ## Next action: verify Phase 3c and Phase 4
 
-Phase 3c (branch `phase3/widgets`) and Phase 4 (branch `phase4/notifications`, which contains 3c) are written but not yet built or run. Test the Phase 4 jar `PabloClient-1.4.1-phase4.jar`, it covers both.
+Phase 3c (branch `phase3/widgets`) and Phase 4 (branch `phase4/notifications`, which contains 3c) are written but not yet built or run. Test the Phase 4 jar `PabloClient-1.4.2-phase4.jar`, it covers both.
 
 Phase 4 (iOS-style notifications), reworking the old `notifications` package; banners always work; the Gui module tick "Toggle island" (default on) only controls the island:
 - Island: a black pill at the top centre when a module is switched on or off. Grows out of a dot on a springy width, holds about 2 s, shrinks away.

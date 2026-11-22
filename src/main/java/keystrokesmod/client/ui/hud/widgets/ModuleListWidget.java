@@ -152,7 +152,7 @@ public final class ModuleListWidget extends Widget {
             int bgColor = (bgOpacity << 24) | 0x101010;
             if (HUD.arrayListBorder.isToggled()) {
                 RenderUtils.drawBorderedRoundedRect(-2, -2, maxWidth + 4, backgroundHeight + 2, 4, 1, 0x00000000,
-                        fade(0xFFFF8C00));
+                        fade(0xFF0A84FF));
             } else {
                 RenderUtils.drawRoundedRect(-2, -2, maxWidth + 4, backgroundHeight + 2, 4, fade(bgColor));
             }
@@ -178,7 +178,7 @@ public final class ModuleListWidget extends Widget {
                 color = Utils.Client.customDraw(del);
                 break;
             case ORANGE:
-                color = 0xFFFF8C00;
+                color = 0xFF0A84FF;
                 break;
             default:
                 break;

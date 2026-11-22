@@ -118,14 +118,14 @@ public final class KeybindsWidget extends Widget {
         FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
         boolean orange = HUD.colourMode.getInput() == HUD.ColourModes.ORANGE.ordinal() + 1;
 
-        RenderUtils.drawBorderedRoundedRect(0, 0, width, height, 4, 1, fade(0xFFFF8C00), fade(0x90101010));
+        RenderUtils.drawBorderedRoundedRect(0, 0, width, height, 4, 1, fade(0xFF0A84FF), fade(0x90101010));
         fr.drawStringWithShadow(HEADER, (width / 2f) - (fr.getStringWidth(HEADER) / 2f), 4, fade(-1));
 
         int yOffset = 18;
         for (int i = 0; i < count; i++) {
             Module m = mods[i];
             boolean on = m != null ? m.isEnabled() : (i % 2 == 0);
-            int color = on ? (orange ? 0xFFFF8C00 : 0xFF00FF00) : 0xFFFFFFFF;
+            int color = on ? (orange ? 0xFF0A84FF : 0xFF30D158) : 0xFFFFFFFF;
             fr.drawStringWithShadow(texts[i], 3, yOffset, fade(color));
             yOffset += fr.FONT_HEIGHT + 2;
         }

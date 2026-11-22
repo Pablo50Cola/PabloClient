@@ -51,8 +51,8 @@ public final class WatermarkWidget extends Widget {
     @Override
     public void render(float partialTicks) {
         FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
-        int color = HUD.colourMode.getInput() == HUD.ColourModes.ORANGE.ordinal() + 1 ? 0xFFFF8C00 : -1;
-        RenderUtils.drawBorderedRoundedRect(0, 0, width, height, 4, 1, fade(0xFFFF8C00), fade(0x90101010));
+        int color = HUD.colourMode.getInput() == HUD.ColourModes.ORANGE.ordinal() + 1 ? 0xFF0A84FF : -1;
+        RenderUtils.drawBorderedRoundedRect(0, 0, width, height, 4, 1, fade(0xFF0A84FF), fade(0x90101010));
         fr.drawStringWithShadow(text, 3, 4, fade(color));
     }
 }

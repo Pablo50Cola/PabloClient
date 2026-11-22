@@ -284,8 +284,8 @@ public class GuiModule extends Module {
                         in -> 0xFFFFFFFE, // categoryNameRGB
                         in -> 0xFF1A1A1A, // settingBackgroundRGB
                         in -> 0xFF1A1A1A, // categoryBackgroundRGB
-                        in -> 0xFFFF8C00, // enabledTopRGB
-                        in -> 0xFFFF8C00, // enabledBottomRGB
+                        in -> 0xFF0A84FF, // enabledTopRGB
+                        in -> 0xFF0A84FF, // enabledBottomRGB
                         in -> 0xFFFFFFFF, // enabledTextRGB
                         in -> 0xFF2A2A2A, // disabledTopRGB
                         in -> 0xFF2A2A2A, // disabledBottomRGB
@@ -294,8 +294,8 @@ public class GuiModule extends Module {
                         true, //rounded
                         true, //swing
                         true, //boarder
-                        in -> 0xFFFF8C00,
-                        in -> 0xFFFF8C00,
+                        in -> 0xFF0A84FF,
+                        in -> 0xFF0A84FF,
                         in -> 0xFF555555
                         ),
 
