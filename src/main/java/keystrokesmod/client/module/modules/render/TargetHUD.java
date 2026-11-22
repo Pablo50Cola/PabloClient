@@ -80,8 +80,25 @@ public class TargetHUD extends Module {
         }
     }
 
-    @Subscribe
-    public void onRender2d(Render2DEvent e) {
+    /** Size of the box for the current mode (the widget uses it for editor and layout). */
+    public int widgetWidth() {
+        return mode.getMode() == TargetHUDMode.Simple ? 130 : 150;
+    }
+
+    public int widgetHeight() {
+        return mode.getMode() == TargetHUDMode.Simple ? 32 : 50;
+    }
+
+    /** Draws a sample (yourself as the target) for the HUD editor. */
+    public void drawSample() {
+        drawTargetHUD(mc.thePlayer, 0, 10000000L, 1.0f);
+    }
+
+    /**
+     * Draws the Target HUD with its top-left corner at (0, 0). Called by {@code TargetHudWidget}
+     * once per frame, which moves and scales the drawing; the module no longer draws on its own.
+     */
+    public void drawWidget() {
         if (editPosition.isToggled()) {
             target = mc.thePlayer;
             drawTargetHUD(target, 0, 10000000, 1.0f);
@@ -139,8 +156,8 @@ public class TargetHUD extends Module {
 
     private void drawFaceMode(AbstractClientPlayer target, long timeSinceTarget, long fadeTime, float scale) {
         float alpha = Math.min(1f, scale);
-        int baseX = HUD.targetHUDX;
-        int baseY = HUD.targetHUDY;
+        int baseX = 0;
+        int baseY = 0;
 
         int hudWidth = 150;
         int hudHeight = 50;
@@ -222,8 +239,8 @@ public class TargetHUD extends Module {
 
     private void draw3DMode(AbstractClientPlayer target, long timeSinceTarget, long fadeTime, float scale) {
         float alpha = Math.min(1f, scale);
-        int baseX = HUD.targetHUDX;
-        int baseY = HUD.targetHUDY;
+        int baseX = 0;
+        int baseY = 0;
 
         int hudWidth = 150;
         int hudHeight = 50;
@@ -308,8 +325,8 @@ public class TargetHUD extends Module {
 
     private void drawSimpleMode(AbstractClientPlayer target, long timeSinceTarget, long fadeTime, float scale) {
         float alpha = Math.min(1f, scale);
-        int baseX = HUD.targetHUDX;
-        int baseY = HUD.targetHUDY;
+        int baseX = 0;
+        int baseY = 0;
 
         int hudWidth = 130;
         int hudHeight = 32;

@@ -45,6 +45,16 @@ public final class PotionWidget extends Widget {
     }
 
     @Override
+    public boolean hasBackgroundOption() {
+        return true;
+    }
+
+    @Override
+    public boolean hasColorOption() {
+        return true;
+    }
+
+    @Override
     public boolean isVisible() {
         Minecraft mc = Minecraft.getMinecraft();
         return enabled && mc.thePlayer != null && !mc.thePlayer.getActivePotionEffects().isEmpty();
@@ -119,7 +129,7 @@ public final class PotionWidget extends Widget {
 
     @Override
     public void render(float partialTicks) {
-        Gfx.roundRect(0f, 0f, width, height, 8f, fade(Colors.argb(200, 28, 28, 30)));
+        drawBackground(width, height, 8f);
         Minecraft mc = Minecraft.getMinecraft();
         float y = PAD;
         for (int i = 0; i < count; i++) {
@@ -131,7 +141,7 @@ public final class PotionWidget extends Widget {
             GlStateManager.disableBlend();
             GlStateManager.color(1f, 1f, 1f, 1f);
 
-            UiText.draw(names[i], PAD + 24f, y + 1f, fade(Colors.LABEL));
+            UiText.draw(names[i], PAD + 24f, y + 1f, textColor());
             UiText.draw(times[i], PAD + 24f, y + 11f, fade(Colors.LABEL_SECONDARY));
             y += ROW;
         }

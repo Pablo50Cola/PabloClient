@@ -30,6 +30,16 @@ public final class PerfWidget extends Widget {
         super("perf", "Performance", Anchor.TOP_RIGHT, 6f, 6f, false);
     }
 
+    @Override
+    public boolean hasBackgroundOption() {
+        return true;
+    }
+
+    @Override
+    public boolean hasColorOption() {
+        return true;
+    }
+
     private void refresh() {
         long now = System.currentTimeMillis();
         if (textWidth >= 0f && now - lastRefresh < REFRESH_MS) return;
@@ -62,7 +72,7 @@ public final class PerfWidget extends Widget {
 
     @Override
     public void render(float partialTicks) {
-        Gfx.roundRect(0f, 0f, width, height, 8f, fade(Colors.argb(200, 28, 28, 30)));
-        UiText.draw(text, PAD_X, PAD_Y, fade(Colors.LABEL));
+        drawBackground(width, height, 8f);
+        UiText.draw(text, PAD_X, PAD_Y, textColor());
     }
 }

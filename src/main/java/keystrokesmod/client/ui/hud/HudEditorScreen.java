@@ -5,12 +5,10 @@ import java.io.IOException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
-import keystrokesmod.client.module.modules.HUD;
 import keystrokesmod.client.ui.components.UiSwitch;
 import keystrokesmod.client.ui.gfx.Colors;
 import keystrokesmod.client.ui.gfx.Gfx;
 import keystrokesmod.client.ui.gfx.UiText;
-import keystrokesmod.client.ui.hud.widgets.LegacyBoxWidget;
 import net.minecraft.client.gui.GuiScreen;
 
 /**
@@ -30,7 +28,7 @@ import net.minecraft.client.gui.GuiScreen;
 public class HudEditorScreen extends GuiScreen {
     private static final float SNAP = 5f;
     private static final float PANEL_W = 330f;
-    private static final float PANEL_H = 104f;
+    private static final float PANEL_H = 132f;
     private static final float PAD = 14f;
     private static final float BTN_H = 20f;
     private static final float STEP_W = 20f;
@@ -47,6 +45,7 @@ public class HudEditorScreen extends GuiScreen {
     private float guideY;
 
     private UiSwitch enableSwitch = new UiSwitch(false);
+    private UiSwitch backgroundSwitch = new UiSwitch(true);
 
     // cached strings: rebuilt only when the number changes
     private int scaleKey = -1;
@@ -82,13 +81,15 @@ public class HudEditorScreen extends GuiScreen {
     }
 
     private void persist() {
-        HUD.savePositions();
         WidgetManager.save();
     }
 
     private void select(Widget w) {
         selected = w;
-        if (w != null) enableSwitch = new UiSwitch(w.isEnabled());
+        if (w != null) {
+            enableSwitch = new UiSwitch(w.isEnabled());
+            backgroundSwitch = new UiSwitch(w.background());
+        }
     }
 
     // ------------------------------------------------------------------ drawing
@@ -108,26 +109,15 @@ public class HudEditorScreen extends GuiScreen {
         Widget[] all = WidgetManager.all();
         for (int i = 0; i < all.length; i++) {
             Widget w = all[i];
-            if (w.isLegacyPositioned()) {
-                w.measure();
-                LegacyBoxWidget lw = (LegacyBoxWidget) w;
-                float lx = lw.legacyX();
-                float ly = lw.legacyY();
-                float maxX = sw - w.scaledWidth();
-                float maxY = sh - w.scaledHeight();
-                w.placeAt(lx > maxX ? Math.max(0f, maxX) : Math.max(0f, lx),
-                        ly > maxY ? Math.max(0f, maxY) : Math.max(0f, ly));
-            } else {
-                w.setEditing(true);
-                w.measure();
-                if (w != dragging) w.layout(sw, sh);
-            }
+            w.setEditing(true);
+            w.measure();
+            if (w != dragging) w.layout(sw, sh);
         }
 
         for (int i = 0; i < all.length; i++) {
             Widget w = all[i];
             if (w.width <= 0f || w.height <= 0f) continue;
-            boolean live = w.isLegacyPositioned() || w.isEnabled();
+            boolean live = w.isEnabled();
             float x = w.screenX();
             float y = w.screenY();
             float ww = w.scaledWidth();
@@ -180,11 +170,10 @@ public class HudEditorScreen extends GuiScreen {
             UiText.draw("Click a widget to edit it.", panelX + PAD, panelY + 28f, Colors.LABEL_SECONDARY);
         } else {
             UiText.draw(w.title, panelX + PAD, panelY + 11f, Colors.LABEL);
-            String hint = w.isLegacyPositioned() ? "Position only. Everything else is set in its module."
-                    : w.hint();
+            String hint = w.hint();
             if (hint != null) UiText.draw(hint, panelX + PAD, panelY + 25f, Colors.LABEL_SECONDARY);
 
-            if (!w.isLegacyPositioned()) {
+            {
                 enableSwitch.draw(panelX + PANEL_W - PAD - UiSwitch.WIDTH, panelY + 10f);
 
                 int sp = (int) (w.scale() * 100f + 0.5f);
@@ -202,6 +191,22 @@ public class HudEditorScreen extends GuiScreen {
                 stepper(panelX + 62f, rowY, scaleText, mouseX, mouseY);
                 UiText.draw("Opacity", panelX + 176f, ty, Colors.LABEL_SECONDARY);
                 stepper(panelX + 232f, rowY, opacityText, mouseX, mouseY);
+
+                float sy = panelY + 74f;
+                float sty = sy + (BTN_H - UiText.height()) / 2f;
+                if (w.hasBackgroundOption()) {
+                    UiText.draw("Background", panelX + PAD, sty, Colors.LABEL_SECONDARY);
+                    backgroundSwitch.draw(panelX + 90f, sy + 1f);
+                }
+                if (w.hasColorOption()) {
+                    UiText.draw("Color", panelX + 170f, sty, Colors.LABEL_SECONDARY);
+                    for (int c = 0; c < Widget.PALETTE.length; c++) {
+                        float cx = panelX + 214f + c * 17f + 7f;
+                        float cy = sy + BTN_H / 2f;
+                        if (c == w.colorIndex()) Gfx.circle(cx, cy, 8f, 0xFFFFFFFF);
+                        Gfx.circle(cx, cy, 6f, Widget.PALETTE[c]);
+                    }
+                }
             }
         }
 
@@ -293,22 +298,34 @@ public class HudEditorScreen extends GuiScreen {
         if (w == null) return;
 
         if (inside(mouseX, mouseY, resetX(), by, 70f, BTN_H)) {
-            if (w instanceof LegacyBoxWidget) {
-                ((LegacyBoxWidget) w).resetLegacyPosition();
-            } else {
-                w.resetToDefaults();
-            }
+            w.resetToDefaults();
             select(w);
             persist();
             return;
         }
-        if (w.isLegacyPositioned()) return;
-
         if (enableSwitch.hit(panelX + PANEL_W - PAD - UiSwitch.WIDTH, panelY + 10f, mouseX, mouseY)) {
             enableSwitch.toggle();
             w.setEnabled(enableSwitch.isOn());
             persist();
             return;
+        }
+
+        float sy = panelY + 74f;
+        if (w.hasBackgroundOption() && backgroundSwitch.hit(panelX + 90f, sy + 1f, mouseX, mouseY)) {
+            backgroundSwitch.toggle();
+            w.setBackground(backgroundSwitch.isOn());
+            persist();
+            return;
+        }
+        if (w.hasColorOption() && mouseY >= sy && mouseY <= sy + BTN_H) {
+            for (int c = 0; c < Widget.PALETTE.length; c++) {
+                float cx = panelX + 214f + c * 17f + 7f;
+                if (Math.abs(mouseX - cx) <= 8f) {
+                    w.setColorIndex(c);
+                    persist();
+                    return;
+                }
+            }
         }
 
         float rowY = panelY + 44f;
@@ -361,12 +378,7 @@ public class HudEditorScreen extends GuiScreen {
     }
 
     private void moveWidget(Widget w, float x, float y) {
-        if (w instanceof LegacyBoxWidget) {
-            ((LegacyBoxWidget) w).setLegacy(Math.round(x), Math.round(y));
-            w.placeAt(x, y);
-        } else {
-            w.moveTo(x, y, this.width, this.height);
-        }
+        w.moveTo(x, y, this.width, this.height);
     }
 
     /**
@@ -436,7 +448,7 @@ public class HudEditorScreen extends GuiScreen {
     public void handleMouseInput() throws IOException {
         super.handleMouseInput();
         int wheel = Mouse.getEventDWheel();
-        if (wheel != 0 && selected != null && !selected.isLegacyPositioned()) {
+        if (wheel != 0 && selected != null) {
             selected.setScale(roundTo(selected.scale() + (wheel > 0 ? 0.05f : -0.05f), 0.05f));
             persist();
         }

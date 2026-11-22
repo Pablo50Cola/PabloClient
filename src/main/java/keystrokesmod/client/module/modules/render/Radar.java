@@ -25,10 +25,21 @@ public class Radar extends Module {
         this.registerSetting(scale = new SliderSetting("Scale", 2.0, 0.5, 5.0, 0.1));
     }
 
-    @Subscribe
-    public void onRender2D(Render2DEvent e) {
+    /** Edge length of the (square) radar in GUI units. */
+    public int sizePx() {
+        return (int) size.getInput();
+    }
+
+    /**
+     * Draws the radar with its top-left corner at (0, 0). Called by {@code RadarWidget}, which
+     * moves and scales the drawing; the module no longer draws on its own.
+     */
+    public void drawRadar() {
         if (mc.thePlayer == null || mc.theWorld == null) return;
-        
+
+        // local origin; shadows the old saved position fields (kept only to carry old positions over)
+        final int radarX = 0;
+        final int radarY = 0;
         int s = (int) size.getInput();
         int halfS = s / 2;
         int cx = radarX + halfS;

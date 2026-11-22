@@ -1,7 +1,5 @@
 package keystrokesmod.client.ui.hud.widgets;
 
-import keystrokesmod.client.ui.gfx.Colors;
-import keystrokesmod.client.ui.gfx.Gfx;
 import keystrokesmod.client.ui.gfx.UiText;
 import keystrokesmod.client.ui.hud.Anchor;
 import keystrokesmod.client.ui.hud.Widget;
@@ -35,6 +33,16 @@ abstract class TextPillWidget extends Widget {
     protected abstract void build(StringBuilder out, long key);
 
     @Override
+    public boolean hasBackgroundOption() {
+        return true;
+    }
+
+    @Override
+    public boolean hasColorOption() {
+        return true;
+    }
+
+    @Override
     public final void measure() {
         long now = System.currentTimeMillis();
         if (textWidth < 0f || now - lastRefresh >= refreshMs) {
@@ -54,7 +62,7 @@ abstract class TextPillWidget extends Widget {
 
     @Override
     public final void render(float partialTicks) {
-        Gfx.roundRect(0f, 0f, width, height, 8f, fade(Colors.argb(200, 28, 28, 30)));
-        UiText.draw(text, PAD_X, PAD_Y, fade(Colors.LABEL));
+        drawBackground(width, height, 8f);
+        UiText.draw(text, PAD_X, PAD_Y, textColor());
     }
 }

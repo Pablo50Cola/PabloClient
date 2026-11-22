@@ -45,6 +45,11 @@ public final class ArmorWidget extends Widget {
     }
 
     @Override
+    public boolean hasBackgroundOption() {
+        return true;
+    }
+
+    @Override
     public boolean isVisible() {
         return enabled && wearsAnything();
     }
@@ -65,7 +70,7 @@ public final class ArmorWidget extends Widget {
 
     @Override
     public void render(float partialTicks) {
-        Gfx.roundRect(0f, 0f, width, height, 8f, fade(Colors.argb(200, 28, 28, 30)));
+        drawBackground(width, height, 8f);
         Minecraft mc = Minecraft.getMinecraft();
         float y = PAD;
         for (int i = 0; i < 4; i++) {

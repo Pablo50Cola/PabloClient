@@ -54,9 +54,13 @@ Everything lives in `src/main/java/keystrokesmod/client/ui/hud/`.
 | `widgets/TextPillWidget` | Base of the one-line pills. Subclasses implement `sample()` (cheap value, a `long`) and `build(StringBuilder, key)`; the text is rebuilt only when the value changes. Used by `FpsWidget`, `PingWidget`, `CoordsWidget`, `ClockWidget` (Phase 3). `CpsWidget` is its own widget (eased numbers, click flash, speed bar). |
 | `ClickStats` | Counts the clicks the game really performs. `MixinMinecraft` calls it from `Minecraft.clickMouse` / `rightClickMouse`, so clicks from the Left/Right Clicker count like real ones. `CpsWidget` and `KeystrokesWidget` read it. |
 | `widgets/ArmorWidget`, `PotionWidget`, `KeystrokesWidget` | Phase 3 widgets that draw item icons, effect icons and keys. All new widgets are off by default. |
-| `widgets/LegacyBoxWidget` | Editor-only stand-in for Target HUD and Radar, which still draw themselves and keep their position in `hudpos.json`. Replaced by real widgets in Phase 3. |
+| `widgets/TargetHudWidget`, `RadarWidget` | The Target HUD and Radar as real widgets (Phase 3). The module keeps its settings and its drawing code (`drawWidget()` / `drawRadar()`), the widget places and scales it; shown while the module is on. Opacity does not apply to these two. |
 
 Commands: `hudedit` (alias `widgets`) opens the editor; `perf` prints the numbers; `perf overlay [on|off]` toggles the overlay.
+
+## Per-widget style
+
+Every widget saves `background` (bool) and `color` (index into `Widget.PALETTE`). A widget opts in by overriding `hasBackgroundOption()` / `hasColorOption()` and using `drawBackground(w, h, radius)` and `textColor()`; the editor panel then shows the Background switch and the colour swatches.
 
 ## Adding a widget
 

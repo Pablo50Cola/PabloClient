@@ -35,6 +35,16 @@ public final class CpsWidget extends Widget {
     }
 
     @Override
+    public boolean hasBackgroundOption() {
+        return true;
+    }
+
+    @Override
+    public boolean hasColorOption() {
+        return true;
+    }
+
+    @Override
     public void measure() {
         if (fixedWidth < 0f) fixedWidth = UiText.width("99+ | 99+ CPS") + PAD_X * 2f;
 
@@ -73,11 +83,11 @@ public final class CpsWidget extends Widget {
 
     @Override
     public void render(float partialTicks) {
-        Gfx.roundRect(0f, 0f, width, height, 8f, fade(Colors.argb(200, 28, 28, 30)));
+        drawBackground(width, height, 8f);
         if (pulse > 0.02f) {
             Gfx.roundRect(0f, 0f, width, height, 8f, fade(Colors.withAlpha(Colors.ACCENT, (int) (pulse * 90f))));
         }
-        UiText.drawCentered(text, width / 2f, PAD_Y, fade(Colors.LABEL));
+        UiText.drawCentered(text, width / 2f, PAD_Y, textColor());
 
         float trackW = width - PAD_X * 2f;
         float by = height - PAD_Y + 1f;

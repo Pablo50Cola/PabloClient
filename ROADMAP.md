@@ -20,28 +20,22 @@ Three things matter, in this order:
 | 0 | Design language and HTML mockup | **Done**, approved by the owner (mockup: dark iOS look, glass cards, Dynamic-Island-style pill) |
 | 1 | Rendering toolkit | **Done**, verified in game by the owner (blur, shadows, springs, components; 0.35 to 0.52 ms CPU) |
 | 2 | HUD widget system | **Builds and runs** (owner screenshot: watermark, keybinds and `perf` overlay correct, 0.19 ms client frame time, 60 FPS). Branch `phase2/hud-widgets`, jar `PabloClient-1.3.0-phase2.jar`. Still to confirm: editor, saved positions after restart and resize |
-| 3 | Widgets | **Written, not yet built or tested.** Branch `phase3/widgets`, jar `PabloClient-1.3.0-phase3.jar` |
+| 3 | Widgets | **Done except the owner's test of 3c.** Branch `phase3/widgets`, jar `PabloClient-1.3.0-phase3c.jar` |
 | 4 | Notifications | Planned |
 | 5 | Menus | Planned |
 | 6 | Polish (themes, font, icons, presets) | Planned |
 | 7 | Release | Planned |
 
-## Next action: verify Phase 3
+## Next action: verify Phase 3c, then Phase 4
 
-Phase 3 is on branch `phase3/widgets` (built on `phase2/hud-widgets`), jar `PabloClient-1.3.0-phase3b.jar`. Phase 3 built and ran fine (owner); the CPS/keystrokes rework below is **written, not yet compiled or run.** The owner said "phase 3 is a go", so Phase 2 counts as accepted; one Phase 2 report is still open (see below).
+Phase 3 is complete in code on branch `phase3/widgets`, jar `PabloClient-1.3.0-phase3c.jar`. The first eight widgets and the CPS/keystrokes rework were tested by the owner and work. **Phase 3c is written, not yet compiled or run:** Radar and Target HUD as real widgets (`RadarWidget`, `TargetHudWidget`; the modules no longer draw on their own), a Background switch and text colour swatches for pills, CPS, perf, armor and potions.
 
-New widgets, all **off by default**, switched on in the `hudedit` editor (each has scale and opacity):
-- `FpsWidget`, `CpsWidget` (left | right, counted from the clicks the game performs via `ClickStats`, so the clickers register; eased numbers, flash per click, speed bar), `PingWidget` (tab-list latency, "-- ms" in singleplayer), `CoordsWidget`, `ClockWidget`: one-line pills (`TextPillWidget`), value read 1 to 10 times a second, text rebuilt only when the value changes.
-- `ArmorWidget`: worn armor as item icons with durability percent; hides when nothing is worn.
-- `PotionWidget`: active effects with vanilla icon, name, level and time left (up to 6).
-- `KeystrokesWidget`: wide layout, W A S D, LMB/RMB with live CPS, space; follows the game's key bindings; keys fade, sink when pressed and flash on every click.
-
-Owner test: build, launch, open `hudedit`, switch each widget on, check it shows the right values, then screenshot with all on plus the `perf overlay` numbers (client frame time with everything on).
+Owner test: build, open `hudedit`, check Target HUD and Radar show in the editor (Target HUD shows yourself as sample), can be moved/scaled/switched off, and that they appear where they were before. Turn the Radar and Target HUD modules on and check them in the game. Try Background off and a colour on the FPS pill.
 
 Open items:
-- Phase 2: the owner reported "some modules stayed where I left them, others moved" after the update. Not yet understood; need which widgets moved and where they were before. The hover blackout in the editor was fixed (frame now drawn with plain rectangles); confirm.
-- Phase 2 and 3 are not merged into `main` yet; merge after the owner confirms.
-- Still to do from Phase 3's original list: real widgets for Target HUD and Radar (replace `LegacyBoxWidget`) and per-widget settings (text colour, background on/off). Planned as Phase 3b after this test.
+- Phase 2 report "some modules stayed where I left them, others moved" is still not understood.
+- Phase 2 and 3 are not merged into `main`; merge after the owner confirms 3c.
+- Opacity does not apply to Target HUD and Radar (they use fixed colours); module list, watermark and keybinds keep their old module settings until Phase 5.
 
 ## Phases in detail
 

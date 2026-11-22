@@ -10,9 +10,9 @@ import keystrokesmod.client.event.impl.Render2DEvent;
 import keystrokesmod.client.main.Raven;
 import keystrokesmod.client.module.Module;
 import keystrokesmod.client.module.modules.HUD;
+import keystrokesmod.client.module.modules.render.Radar;
 import keystrokesmod.client.ui.gfx.Gfx;
 import keystrokesmod.client.ui.hud.widgets.KeybindsWidget;
-import keystrokesmod.client.ui.hud.widgets.LegacyBoxWidget;
 import keystrokesmod.client.ui.hud.widgets.ModuleListWidget;
 import keystrokesmod.client.ui.hud.widgets.ArmorWidget;
 import keystrokesmod.client.ui.hud.widgets.ClockWidget;
@@ -23,6 +23,8 @@ import keystrokesmod.client.ui.hud.widgets.KeystrokesWidget;
 import keystrokesmod.client.ui.hud.widgets.PerfWidget;
 import keystrokesmod.client.ui.hud.widgets.PingWidget;
 import keystrokesmod.client.ui.hud.widgets.PotionWidget;
+import keystrokesmod.client.ui.hud.widgets.RadarWidget;
+import keystrokesmod.client.ui.hud.widgets.TargetHudWidget;
 import keystrokesmod.client.ui.hud.widgets.WatermarkWidget;
 import keystrokesmod.client.ui.perf.FrameCost;
 import keystrokesmod.client.utils.Utils;
@@ -47,6 +49,10 @@ public final class WidgetManager {
     private static boolean initialized;
     /** True when no saved widget data was found, so the old HUD positions should be carried over. */
     private static boolean pendingMigration;
+    /** Which widgets still have to take their position from the old files. */
+    private static boolean migrateAll;
+    private static boolean migrateRadar;
+    private static boolean migrateTarget;
 
     private static Module hudModule;
     private static int hudLookupCooldown;
@@ -79,8 +85,8 @@ public final class WidgetManager {
         register(new ArmorWidget());
         register(new PotionWidget());
         register(new KeystrokesWidget());
-        register(new LegacyBoxWidget(LegacyBoxWidget.Kind.TARGET_HUD));
-        register(new LegacyBoxWidget(LegacyBoxWidget.Kind.RADAR));
+        register(new TargetHudWidget());
+        register(new RadarWidget());
         Raven.eventBus.register(INSTANCE);
     }
 
@@ -180,7 +186,6 @@ public final class WidgetManager {
         root.addProperty("version", 1);
         JsonObject items = new JsonObject();
         for (int i = 0; i < widgets.length; i++) {
-            if (widgets[i].isLegacyPositioned()) continue; // these keep their position in the old files
             items.add(widgets[i].id, widgets[i].toJson());
         }
         root.add("items", items);
@@ -203,33 +208,27 @@ public final class WidgetManager {
         }
 
         if (items == null) {
-            // Only the real widgets go back to defaults. Target HUD and Radar keep the position that
-            // was just read from hudpos.json.
-            for (int i = 0; i < widgets.length; i++) {
-                if (!widgets[i].isLegacyPositioned()) widgets[i].resetToDefaults();
-            }
+            for (int i = 0; i < widgets.length; i++) widgets[i].resetToDefaults();
             pendingMigration = true;
+            migrateAll = true;
             return;
         }
 
         pendingMigration = false;
+        migrateAll = false;
         for (int i = 0; i < widgets.length; i++) {
             Widget w = widgets[i];
-            if (w.isLegacyPositioned()) continue;
             JsonElement e = items.get(w.id);
             w.fromJson(e != null && e.isJsonObject() ? e.getAsJsonObject() : null);
         }
+        // Saved by Phase 2 or 3 without these two: take their old position once
+        migrateRadar = !items.has("radar");
+        migrateTarget = !items.has("targethud");
+        pendingMigration = migrateRadar || migrateTarget;
     }
 
     public static void resetAll() {
-        for (int i = 0; i < widgets.length; i++) {
-            Widget w = widgets[i];
-            if (w instanceof LegacyBoxWidget) {
-                ((LegacyBoxWidget) w).resetLegacyPosition();
-            } else {
-                w.resetToDefaults();
-            }
-        }
+        for (int i = 0; i < widgets.length; i++) widgets[i].resetToDefaults();
     }
 
     /** Writes the client config file, including the widget data. */
@@ -252,9 +251,16 @@ public final class WidgetManager {
         pendingMigration = false;
         try {
             HUD.loadLegacyPositions();
-            moveLegacy("modulelist", HUD.hudX, HUD.hudY, sw, sh);
-            moveLegacy("watermark", HUD.watermarkX, HUD.watermarkY, sw, sh);
-            moveLegacy("keybinds", HUD.keybindsX, HUD.keybindsY, sw, sh);
+            if (migrateAll) {
+                moveLegacy("modulelist", HUD.hudX, HUD.hudY, sw, sh);
+                moveLegacy("watermark", HUD.watermarkX, HUD.watermarkY, sw, sh);
+                moveLegacy("keybinds", HUD.keybindsX, HUD.keybindsY, sw, sh);
+            }
+            if (migrateAll || migrateRadar) moveLegacy("radar", Radar.radarX, Radar.radarY, sw, sh);
+            if (migrateAll || migrateTarget) moveLegacy("targethud", HUD.targetHUDX, HUD.targetHUDY, sw, sh);
+            migrateAll = false;
+            migrateRadar = false;
+            migrateTarget = false;
         } catch (RuntimeException ignored) {
             // keep the default positions
         }

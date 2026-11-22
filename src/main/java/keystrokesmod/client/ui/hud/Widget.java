@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import keystrokesmod.client.ui.gfx.Colors;
+import keystrokesmod.client.ui.gfx.Gfx;
 
 /**
  * Base class of every HUD element (Phase 2).
@@ -43,6 +44,13 @@ public abstract class Widget {
     protected float offsetY;
     protected float scale = 1f;
     protected float opacity = 1f;
+
+    /** Text colours the editor offers (index saved in the file). */
+    public static final int[] PALETTE = { Colors.LABEL, Colors.ACCENT, Colors.GREEN, Colors.ORANGE, Colors.RED,
+            0xFFBF5AF2 };
+    /** Per-widget style, used by widgets that return true from {@link #hasBackgroundOption()} / {@link #hasColorOption()}. */
+    protected boolean background = true;
+    protected int colorIndex;
 
     /** Content size in GUI units before scaling. Set by {@link #measure()}. */
     protected float width;
@@ -91,6 +99,42 @@ public abstract class Widget {
      */
     public boolean usesMatrixTransform() {
         return true;
+    }
+
+    /** True if the widget honours {@link #background} (the editor then shows a Background switch). */
+    public boolean hasBackgroundOption() {
+        return false;
+    }
+
+    /** True if the widget honours {@link #colorIndex} (the editor then shows the colour swatches). */
+    public boolean hasColorOption() {
+        return false;
+    }
+
+    /** Draws the usual dark pill behind a widget, unless the owner switched the background off. */
+    protected final void drawBackground(float w, float h, float radius) {
+        if (background) Gfx.roundRect(0f, 0f, w, h, radius, fade(Colors.argb(200, 28, 28, 30)));
+    }
+
+    /** The chosen text colour with the widget's opacity applied. */
+    protected final int textColor() {
+        return fade(PALETTE[colorIndex]);
+    }
+
+    public final boolean background() {
+        return background;
+    }
+
+    public final void setBackground(boolean on) {
+        background = on;
+    }
+
+    public final int colorIndex() {
+        return colorIndex;
+    }
+
+    public final void setColorIndex(int i) {
+        colorIndex = i < 0 || i >= PALETTE.length ? 0 : i;
     }
 
     /** One short line shown under the title in the editor (for example when the widget depends on a module). May be null. */
@@ -203,21 +247,6 @@ public abstract class Widget {
         layout(screenW, screenH);
     }
 
-    /**
-     * True for the two elements that still draw themselves (Target HUD, Radar) and keep their
-     * position in the old modules. They only appear in the editor so they can still be moved;
-     * Phase 3 turns them into real widgets.
-     */
-    public boolean isLegacyPositioned() {
-        return false;
-    }
-
-    /** Sets the on-screen position directly (used for legacy-positioned elements). */
-    public final void placeAt(float x, float y) {
-        screenX = x;
-        screenY = y;
-    }
-
     public final boolean contains(float mouseX, float mouseY) {
         return mouseX >= screenX && mouseX <= screenX + width * scale
                 && mouseY >= screenY && mouseY <= screenY + height * scale;
@@ -232,6 +261,8 @@ public abstract class Widget {
         offsetY = defaultOffsetY;
         scale = 1f;
         opacity = 1f;
+        background = true;
+        colorIndex = 0;
         resetExtra();
     }
 
@@ -243,6 +274,8 @@ public abstract class Widget {
         o.addProperty("offsetY", offsetY);
         o.addProperty("scale", scale);
         o.addProperty("opacity", opacity);
+        o.addProperty("background", background);
+        o.addProperty("color", colorIndex);
         saveExtra(o);
         return o;
     }
@@ -269,6 +302,11 @@ public abstract class Widget {
         if (sc != null) scale = clamp(sc, MIN_SCALE, MAX_SCALE);
         Float op = readFloat(in, "opacity");
         if (op != null) opacity = clamp(op, MIN_OPACITY, 1f);
+
+        Boolean bg = readBoolean(in, "background");
+        if (bg != null) background = bg;
+        Float ci = readFloat(in, "color");
+        if (ci != null) setColorIndex((int) (float) ci);
 
         try {
             loadExtra(in);
